@@ -1,0 +1,49 @@
+
+
+.label-quanti-mul {
+    width: 100% !important;
+    float: left;
+
+}
+
+.label-quanti-hom {
+    width: 100% !important;
+    float: left;
+
+}
+
+.label-media-idad {
+    width: 100% !important;
+    float: left;
+
+}
+
+.lab-quant-home {
+    position: absolute;
+    margin-left: -96px;
+    margin-top: 25px;
+    width: 56px;
+}
+
+.lab-quant-mul {
+    position: absolute;
+    margin-left: -96px;
+    margin-top: 45px;
+    width: 56px;
+}
+
+.lab-media-idade {
+    position: absolute;
+    margin-left: -96px;
+    margin-top: 65px;
+    width: 56px;
+}
+
+
+.espaco {
+    width: 100% !important;
+}
+
+
+
+
