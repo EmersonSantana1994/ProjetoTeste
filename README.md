@@ -20,8 +20,7 @@ Como funciona?
 
 Atendendo ao que foi solicitado, este sistema funciona desta maneira:
 
-- 1º Deve se cadastrar na tela de login
-(No momento que é enviado a senha e login ao Spring, o Security valida e realiza a criptografia da senha.)
+- 1º Deve se cadastrar na tela de login (No momento que é enviado a senha e login ao Spring, o Security valida e realiza a criptografia da senha.)
 - 2ª Deve se logar no sistema utilizando o email e senha cadastrados
 (O Spring Security valida a senha e email)
 - 3ª Assim que for realizado o login a parte de upload de arquivo sera apresentada clique nele
