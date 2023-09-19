@@ -8,7 +8,7 @@ IMPORTANTE
 
 Neste projeto full stack, foram utilizados as seguintes tecnologias e linguagens
 - Java
-- Spring Boot e Spring Security (foi feita criptografia de senhas para o banco)
+- Spring Boot e Spring Security (foi feita a criptografia de senhas para o banco)
 - MySql
 - ReactJS
 - JavaScript
