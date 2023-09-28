@@ -1,101 +1,31 @@
-// PROJETO PARA DESAFIO DE TESTE
-
 import React, { useState, useEffect } from 'react';/*eslint-disable*/
-import '../../css/login/login.css';
+import '../../css/login/upload.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useNavigate } from 'react-router-dom';
 
-export default function TelaLogin() {
 
-    //VARIAVEIS
-    const [mostrarRecuperarSenha, setMostrarRecuperarSenha] = useState('padrao');
-    const [loginError, setLoginError] = useState(false);
-    const [email, setEmail] = useState('');
-    const [emailCadastro, setEmailCadastro] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordCadastro, setPasswordCadastro] = useState('');
-    const [mostrarEsconder, setMostrarEsconder] = useState("password");
-    const [mostrarUploadCsv, setMostrarUploadCsv] = useState(false);
-    const [carregando, setCarregando] = useState(false);
-    const [erroAoCadastrar, setErroAoCadastrar] = useState(false);
-    const [nomeArquivo, setNomeArquivo] = useState('');
-    const [arquivo, setArquivo] = useState('');
-    const [mostrarTabela, setMostrarTabela] = useState(false);
-    const [itens, setItens] = useState([]);
-    const [contMen, setContMen] = useState([]);
-    const [contFem, setContFem] = useState([]);
-    const [medIdade, setMedIdade] = useState([]);
+export default function UploadArquivos() {
 
-    let totalItens = 0
-    let contador = 0
-    let itensVar = []
-    let contadorMale = 0
-    let contadorFemale = 0
+//VARIAVEIS
+const [mostrarUploadCsv, setMostrarUploadCsv] = useState(false);
+const [carregando, setCarregando] = useState(false);
+const [nomeArquivo, setNomeArquivo] = useState('');
+const [arquivo, setArquivo] = useState('');
+const [mostrarTabela, setMostrarTabela] = useState(false);
+const [itens, setItens] = useState([]);
+const [contMen, setContMen] = useState([]);
+const [contFem, setContFem] = useState([]);
+const [medIdade, setMedIdade] = useState([]);
 
-    const navigate = useNavigate();
-    const paraNavegar = () => {
-        navigate('/upload')
-    }
 
-    //FUNÇÃO DE ENFETUAR O LOGIN
-    async function efetuarLogin(e) {
-        setLoginError("");
-        setCarregando(true)
-        if (!email || !password) {
-            setLoginError("Preencha e-mail e senha!");
-        } else {
-            setCarregando(true)
-            await apiC.post('usuarios/logar', {
-                usuario: email,
-                senha: password
-            })
-                .then(async function (response) {
-                    //AO REALIZAR O LOGIN AS MENSAGENS ABAIXO SE MODIFICAM
-                    paraNavegar()
-                    setCarregando(false)
-                    setMostrarUploadCsv(true)
-                    setLoginError(false)
-                    setErroAoCadastrar(false)
-                })
-                .catch(function (error) {
-                    //MENSAGENS DE ERRO APARECERAM CASO LOGIN DER ALGUM ERRO
-                    setCarregando(false)
-                    setLoginError(true)
-                });
-        }
-    }
+let totalItens = 0
+let contador = 0
+let itensVar = []
+let contadorMale = 0
+let contadorFemale = 0
 
-    //FUNÇÃO APOIADORA PARA CADASTRO E LOGIN
-    function botaoPressionado(event) {
-        if (event.key === "Enter") {
-            efetuarLogin(event)
-        } else if (event.key === "Cadastrar") {
-            efetuarCadastro(event)
-        }
-    }
-
-    //FUNÇÃO DE CADASTRO
-    async function efetuarCadastro(e) {
-        // API CADASTRO
-        setCarregando(true)
-        await apiC.post('usuarios/cadastrar', {
-            usuario: emailCadastro,
-            senha: passwordCadastro
-        })
-            .then(async function (response) {
-                setCarregando(false)
-                setErroAoCadastrar(false)
-            })
-            .catch(function (error) {
-                // CASO ACONTEÇA ALGUM ERRO SERÁ APRESENTADA
-                setCarregando(false)
-                setErroAoCadastrar(true)
-            });
-    }
-
-    // FUNÇÃO ENVIA ARQUIVO CSV AO BACK
     async function handleSalvar(e) {
         //LEITURA E ENVIO DE ARQUIVO CSV PARA O BACK
         e.preventDefault();
@@ -286,133 +216,53 @@ export default function TelaLogin() {
     };
 
     return (
+
         <>
-            {carregando &&
+
+{carregando &&
                 <h1>carregando..</h1>
             }
-            {erroAoCadastrar &&
-                <h4>Erro ao cadastrar</h4>
-            }
-            {loginError &&
-                <h4> E-mail inválido ou senha incorreta </h4>
-            }
-            
 
-            {mostrarRecuperarSenha === 'padrao' &&
-                <>
-                    <div>
-                        <div>
-                            <label>E-mail</label>
-                            <Form.Control
 
-                                type="email"
-                                placeholder="E-mail"
-                                onChange={e => setEmail(e.target.value)}
-                                value={email}
-                                name="campoEmail"
-                                id="campoEmail"
-                            />
-                        </div>
-                        <div>
-                            <div>
-                                <label>Senha</label>
-                                <FormControl
-
-                                    placeholder="Senha"
-                                    type={mostrarEsconder}
-                                    onChange={e => setPassword(e.target.value)}
-                                    value={password}
-                                    name="campoSenha"
-                                    id="campoSenha"
-                                    maxLength="20"
-                                />
-                            </div>
-                           
-                        </div>
-                    </div>
-
-                    <div>
-                        <Button onClick={efetuarLogin} onKeyDown={e => botaoPressionado(e)}>Entrar</Button>
-                    </div>
-                    <div className="espaco" ></div>
-                    <div className="campos-texto-login">
-                        <div>
-                            <label>Cadastrar e-mail</label>
-                            <Form.Control
-
-                                type="email"
-                                placeholder="E-mail"
-                                onChange={e => setEmailCadastro(e.target.value)}
-                                value={emailCadastro}
-                                name="cadastrarEmail"
-                                id="cadastrarEmail"
-                            />
-                          
-                        </div>
-
-                        <div>
-                            <div>
-                                <label> Cadastrar senha</label>
-                                <FormControl
-
-                                    placeholder="Senha"
-                                    type={mostrarEsconder}
-                                    onChange={e => setPasswordCadastro(e.target.value)}
-                                    value={passwordCadastro}
-                                    name="cadastrarSenha"
-                                    id="cadastrarSenha"
-                                    maxLength="20"
-                                />
-                            </div>
-                           
-                        </div>
-                    </div>
-
-                    <div>
-                        <Button onClick={efetuarCadastro} onKeyDown={e => botaoPressionado(e)}>Cadastrar</Button>
-                    </div>
-
-                    {mostrarUploadCsv &&
                         <input type="file" onChange={(e) => handleLerArquivo(e)} />
-                    }
-                    {mostrarUploadCsv &&
+                    
+                 
                         <Button className="btn-filtro-arquivo" onClick={(e) => handleSalvar(e)}>
                             <div>Enviar Arquivo</div>
                         </Button>
-                    }
+                    
 
 
-                    {mostrarUploadCsv &&
                         <label className="label-quanti-hom">Quantidades de Homens</label>
-                    }
+                  
 
-                    {mostrarUploadCsv &&
+                   
                         <Form.Control
                             className="lab-quant-home"
                             value={contMen}
                         />
-                    }
-                    {mostrarUploadCsv &&
+                    
+                    
                         <label className="label-quanti-mul">Quantidades de Mulheres </label>
-                    }
+                    
 
-                    {mostrarUploadCsv &&
+                    
                         <Form.Control
                             className="lab-quant-mul"
                             value={contFem}
                         />
-                    }
-                    {mostrarUploadCsv &&
+                    
+                    
                         <label className="label-media-idad">Media de idade</label>
-                    }
+                    
 
-                    {mostrarUploadCsv &&
+                   
                         <Form.Control
                             className="lab-media-idade"
                             value={medIdade}
                         />
-                    }
-                    {mostrarTabela &&
+                    
+                    
                         <div>
                             <BootstrapTable
                                 hover={true}
@@ -425,12 +275,8 @@ export default function TelaLogin() {
                                 bordered={false}
                             />
                         </div>
-                    }
-
-                </>
-
-            }
-        </>
-
+                    
+         </>
     )
+
 }
