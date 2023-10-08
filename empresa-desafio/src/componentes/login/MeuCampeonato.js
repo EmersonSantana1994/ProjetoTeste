@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';/*eslint-disable*/
 import '../../css/login/login.css';
-import { Button, Image, Form, InputGroup, FormControl, Col, Carousel } from 'react-bootstrap';
+import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
 
@@ -183,7 +183,6 @@ export default function MeuCampeonato() {
                 liga.push(priLugSuper, segLugSuper, terLugSuper, quarLugSuper)
             }   
             for (let i = 0; i < liga.length; i++) {
-console.log("ffffffff", liga[i])
                 await apiC.post("ranking/encontrar/nome", {
                     "nome": liga[i]
                 })
@@ -209,8 +208,6 @@ console.log("ffffffff", liga[i])
     // FUNÇÃO BUNCA ARQUIVO ENVIA DO BANCO DE DADOS
     async function atualizaArquivo(item, i, torneio) {
         setCarregando(true)
-        console.log("item", item[0].nome)
-        console.log("i", i)
         if(torneio == "Liga"){
             await apiC.put("ranking/atualiza", {
                 "id": item[0].id,
@@ -220,7 +217,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -237,7 +233,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -246,9 +241,6 @@ console.log("ffffffff", liga[i])
                     setCarregando(false)
                 });
         }if(torneio == "Mundial"){
-            console.log("valorSexMund", valorSexMund)
-            console.log("dddddd", i)
-            console.log("item[0].pontos", item[0].pontos)
             await apiC.put("ranking/atualiza", {
                 "id": item[0].id,
                 "nome": item[0].nome,
@@ -259,7 +251,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -275,7 +266,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -292,7 +282,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -310,7 +299,6 @@ console.log("ffffffff", liga[i])
             })
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("atualizado ", response)
                         inserirData()
                     }
                     setCarregando(false)
@@ -322,53 +310,65 @@ console.log("ffffffff", liga[i])
     }
 
     async function inserirNovoTime(nome, i, torneio) {
-        if(torneio == "Liga"){
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriLiga : i == 1 ? 
-                valorSegLiga : i == 2 ?  valorTerLiga : ""
-            })
-            inserirData() 
-        } if(torneio == "SubLiga"){
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriLugSub : i == 1 ? 
-                valorSegLugSub : i == 2 ?  valorTerLugSub : ""
-            })
-            inserirData()
-        } if(torneio == "Mundial"){
-            console.log("valorSegMund", valorSegMund)
-            console.log("iiii", i)
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriMund : i == 1 ? 
-                valorSegMund : i == 2 ?  valorTerMund : i == 3 ? 
-                valorQuarMund : i == 4 ? valorQuinMund : i == 5 ? 
-                valorSexMund : i == 6 ? valorSetMund : ""
-            })
-            inserirData()
-        } if(torneio == "Recopa"){
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriLugRecopa : ""
-            })
-            inserirData()
-        } if(torneio == "Copa"){
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriLugCopa : i == 1 ? 
-                valorSegLugCopa : i == 2 ? valorTercLugCopa : ""
-            })
-            inserirData()
-        } if(torneio == "SuperCopa"){
-            await apiC.post("ranking/inserir", {
-                "nome": nome,
-                "pontos": i == 0 ? valorPriLugSuper : i == 1 ? 
-                valorSegLugSuper : i == 2 ?  valorTerLugSuper :  i == 3 ? 
-                valorQuarLugSuper: ""
-            })
-            inserirData()
+       const verificar = verificaString(nome)
+        if(verificar){
+            if(torneio == "Liga"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriLiga : i == 1 ? 
+                    valorSegLiga : i == 2 ?  valorTerLiga : ""
+                })
+                inserirData() 
+            } if(torneio == "SubLiga"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriLugSub : i == 1 ? 
+                    valorSegLugSub : i == 2 ?  valorTerLugSub : ""
+                })
+                inserirData()
+            } if(torneio == "Mundial"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriMund : i == 1 ? 
+                    valorSegMund : i == 2 ?  valorTerMund : i == 3 ? 
+                    valorQuarMund : i == 4 ? valorQuinMund : i == 5 ? 
+                    valorSexMund : i == 6 ? valorSetMund : ""
+                })
+                inserirData()
+            } if(torneio == "Recopa"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriLugRecopa : ""
+                })
+                inserirData()
+            } if(torneio == "Copa"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriLugCopa : i == 1 ? 
+                    valorSegLugCopa : i == 2 ? valorTercLugCopa : ""
+                })
+                inserirData()
+            } if(torneio == "SuperCopa"){
+                await apiC.post("ranking/inserir", {
+                    "nome": nome,
+                    "pontos": i == 0 ? valorPriLugSuper : i == 1 ? 
+                    valorSegLugSuper : i == 2 ?  valorTerLugSuper :  i == 3 ? 
+                    valorQuarLugSuper: ""
+                })
+                inserirData()
+            }
+        }else{
+            console.log("oiiii")
+            alert("Valor digitado não corresponde aos times cadastrados")
+            console.log("oiiii 2")
         }
+        
+    }
+
+    const verificaString = (tipoSolicitacao) => {
+        return ["Brastemp", "Halor", "Panasonic", "Raiden" , "Penharol", 
+        "Sacred", "Brécia", "Galaxy", "Ases", "Castelão",
+         "Democration", "Juventude", "LG", "Once Caldas", "Lanus", "LDU" ].includes(tipoSolicitacao)
     }
 
     const handleClickOutroBotao = (e) => {
@@ -378,7 +378,6 @@ console.log("ffffffff", liga[i])
 
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
    async function inserirData() {
-    console.log("veio aqui?????")
         setCarregando(true)
         await apiC.get("ranking/buscar")
             .then(response => {
@@ -391,8 +390,6 @@ console.log("ffffffff", liga[i])
                                 k++
                             }
                         }
-                        console.log("itensVar 2", itensVar)
-                            console.log("itensVar", itensVar)
                             setItens(JSON.parse(JSON.stringify(itensVar)))
 
                     }
@@ -401,7 +398,6 @@ console.log("ffffffff", liga[i])
                 setCarregando(false)
             })
             .catch((error) => {
-                console.log("deu erro????")
                 setCarregando(false)
             });
 
@@ -414,7 +410,7 @@ console.log("ffffffff", liga[i])
             headerClasses: 'nao-selecionavel',
             sort: true,
             text: <p>
-                Nome
+                Time
             </p>,
             formatter: (cell, row) => {
                 return <p>{cell === null ? '-' : cell}</p>;
@@ -669,7 +665,6 @@ console.log("ffffffff", liga[i])
                         value={medIdade}
                     />
                 }
-                {console.log("cadeeeee????", itens )}
                 {mostrarTabela &&
                     <div>
                         <BootstrapTable

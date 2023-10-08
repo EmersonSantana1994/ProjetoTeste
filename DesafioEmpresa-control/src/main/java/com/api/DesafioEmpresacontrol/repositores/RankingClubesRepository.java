@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface RankingClubesRepository extends JpaRepository<RankingClubes, UUID> {
-    public List<RankingClubes> findAllByNomeContainingIgnoreCase(String nome);
+    public List<RankingClubes> findAllByNomeIgnoreCase(String nome);
 
     public List<RankingClubes> findByOrderByPontosDesc();
 
