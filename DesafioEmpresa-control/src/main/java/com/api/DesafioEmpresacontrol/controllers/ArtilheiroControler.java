@@ -2,12 +2,10 @@ package com.api.DesafioEmpresacontrol.controllers;
 
 import com.api.DesafioEmpresacontrol.models.Artilheiro;
 import com.api.DesafioEmpresacontrol.repositores.ArtilheiroRepository;
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @RestController
@@ -56,8 +54,9 @@ public class ArtilheiroControler {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/achaai")
-    public Artilheiro findAllByAll(@PathVariable("id") String[] id){
-        return null;
+    public ResponseEntity<List<Artilheiro>> PegarTudo(@RequestBody Artilheiro artilheiro){
+        return ResponseEntity.ok(rankingRepository
+                .PegarTudo());
     }
 
 }

@@ -60,8 +60,6 @@ export default function Artilheiro() {
     async function atualizaNumeroGol(item) {
       let quantidadeGolNum =  parseInt(quantidadeGol, 10)
         setMensagem('atualizando..')
-        console.log("jjj", item[0].id )
-        console.log("jjj 2", item[0].nome )
 
         await apiC.put("artilheiro/atualiza", {
             "id": item[0].id,
@@ -89,7 +87,6 @@ export default function Artilheiro() {
         let quantidadeGolNum =  parseInt(quantidadeGol, 10)
         const verificar = verificaString()
         if(verificar){
-            console.log("afff 2", nomeJogador)
             setMensagem('Inserindo novo nome..')
             await apiC.post("artilheiro/inserir", {
                 "nome": nomeJogador,
@@ -139,13 +136,11 @@ for(let i = 0; i < dadosSelecionados.length; i++){
     async function handleSalvar() {
         setCarregando(true)
         setMensagem('salvando..')
-        console.log("vvv", nomeJogador)
         await apiC.post("artilheiro/nome", {
             "nome": nomeJogador
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log("hhhh",response.data )
                     if (response.data.length > 0) {
                         atualizaNumeroGol(response.data)
                     } else {
@@ -228,7 +223,6 @@ for(let i = 0; i < dadosSelecionados.length; i++){
         mode: 'checkbox' ,
         onSelect: (row, isSelect, rowIndex, e) => {
             if(isSelect){
-                console.log("cccccccc", row )
                 handleSelecionar(row.id)
             }else{
                 handleDesselecionar(row.id)

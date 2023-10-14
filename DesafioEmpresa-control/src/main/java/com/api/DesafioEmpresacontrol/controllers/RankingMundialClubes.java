@@ -42,7 +42,8 @@ public class RankingMundialClubes {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/inserir")
-    public RankingClubes inserirPontos(@RequestBody RankingClubes ranking){
+    public RankingClubes inserirPontos(@RequestBody RankingClubes ranking)
+    {
         return rankingRepository.save(ranking);
     }
 

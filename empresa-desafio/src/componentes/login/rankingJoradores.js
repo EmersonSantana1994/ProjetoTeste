@@ -80,7 +80,6 @@ export default function RankingJogadores() {
     ]
 
     async function atualizaArquivo(item, i, torneio) {
-        console.log("eeeeeeee", item )
         setCarregando(true)
             await apiC.put("rankingJogadores/atualiza", {
                 "id": item[0].id,
@@ -101,7 +100,6 @@ export default function RankingJogadores() {
     
 
     async function inserirNovoTime(nome, i, torneio) {
-        console.log("ffffffffff", nome )
        const verificar = verificaString(nome)
         if(verificar){
                 await apiC.post("rankingJogadores/inserir", {
@@ -131,7 +129,6 @@ export default function RankingJogadores() {
     async function handleSalvar(torneio) {
         let liga = []
             liga.push(priLugLiga, segLugLiga, terLugLiga)
-          console.log("kkkkkkkkkkk", liga )
         for (let i = 0; i < liga.length; i++) {
             await apiC.post("rankingJogadores/encontrar/nome", {
                 "nome": liga[i]

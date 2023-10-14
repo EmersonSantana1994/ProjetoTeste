@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import UploadArquivos from './componentes/login/uploadArquivos';
 import Artilheiro from './componentes/login/artilheiro';
 import RankingJogadores from './componentes/login/rankingJoradores';
+import Torneio from './componentes/login/torneio';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/ranking' element={<MeuCampeonato />} />
         <Route path='/artilheiro' element={<Artilheiro />} />
         <Route path='/rankingJogadores' element={<RankingJogadores />} />
+        <Route path='/torneio' element={<Torneio />} />
       </Routes>
       </BrowserRouter>
     </div>

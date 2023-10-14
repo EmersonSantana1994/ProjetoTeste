@@ -358,9 +358,7 @@ export default function MeuCampeonato() {
                 inserirData()
             }
         }else{
-            console.log("oiiii")
             alert("Valor digitado não corresponde aos times cadastrados")
-            console.log("oiiii 2")
         }
         
     }
