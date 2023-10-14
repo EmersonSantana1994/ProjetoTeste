@@ -19,6 +19,7 @@ O que o sistema possui?
 - login 
 - Cadastro com senha criptografada 
 - Faz upload de arquivos
+- Faz pontuação de uma liga de futebol por vitorias e saldo de gols
 - Faz ranking de times de futebol amador
 - Faz ranking de gols no futebol amador
 - Faz ranking de jogadores no futebol amador
