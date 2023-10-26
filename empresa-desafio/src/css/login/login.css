@@ -6,6 +6,12 @@
 
 }
 
+.deletar-jogadorr{
+    position: absolute;
+    margin-left: -93px;
+    margin-top: -214px;
+}
+
 .label-quanti-hom {
     width: 100% !important;
     float: left;

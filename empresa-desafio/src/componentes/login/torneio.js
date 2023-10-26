@@ -31,6 +31,8 @@ export default function Torneio() {
     const [time20, setTime20] = useState('');
     const [time21, setTime21] = useState('');
     const [time22, setTime22] = useState('');
+    const [time177, setTime177] = useState('');
+    const [time188, setTime188] = useState('');
     const [numero1, setNumero1] = useState(0);
     const [numero2, setNumero2] = useState(0);
     const [numero3, setNumero3] = useState(0);
@@ -60,7 +62,7 @@ export default function Torneio() {
     const [timesSorteadosArray3, setTimesSorteadosArray3] = useState('');
     const [timesSorteadosArray4, setTimesSorteadosArray4] = useState('');
 
-    
+
 
     let totalItens = 0
     let contador = 0
@@ -74,6 +76,8 @@ export default function Torneio() {
     let times = []
     let timesSor = []
     let timesSorteadosArray = []
+    let dadosSelecionados = []
+    let dadosSelecionadosSorteados = []
 
     useEffect(() => {
         verificaSeTemTimeCadastrado()
@@ -109,19 +113,135 @@ export default function Torneio() {
             });
     }
 
+    const selecaoLinhas = {
+        mode: 'checkbox',
+        onSelect: (row, isSelect, rowIndex, e) => {
+            if (isSelect) {
+                console.log("fffffffff", row)
+                handleSelecionar(row.id, row.nome)
+            } else {
+                handleDesselecionar(row.id, row.nome)
+            }
+        },
+        onSelectAll: (isSelect, rows, e) => {
+            if (isSelect) {
+                handleSelecionarTodos()
+            } else {
+                handleDesselecionarTodos()
+            }
+        },
+        selectionRenderer: ({ mode, ...rest }) => {
+            return (
+                <>
+                    <input type={mode} class="input-checkbox-simcard" {...rest} />
+                    <label class="label-checkbox-simcard"></label>
+                </>
+            )
+        },
+        selectionHeaderRenderer: ({ mode, ...rest }) => {
+            return (
+                <>
+                    <input type={mode} class="input-checkbox-header-simcard" {...rest} />
+                    <label class="label-checkbox-header-simcard"></label>
+                </>
+            )
+        },
+        bgColor: 'row-index-bigger-than-2101'
+    };
+
+    function handleSelecionar(simcard, nome) {
+        console.log("pppppppp", simcard)
+        console.log("itens", itens)
+        for (let i = 0; i < itens.length; i++) {
+            if (itens[i].id == simcard) {
+                dadosSelecionados.push(itens[i].id);
+                dadosSelecionadosSorteados.push(itens[i].nome);
+                break;
+            }
+            console.log("sssssssss", dadosSelecionados)
+        }
+    }
+
+    async function handleDeletar() {
+        setCarregando(true)
+        console.log("dadosSelecionados", dadosSelecionados)
+        for (let i = 0; i < dadosSelecionados.length; i++) {
+
+            await apiC.post("torneio/deletar", {
+                "id": dadosSelecionados[i],
+            })
+                .then(response => {
+                    if (response.status === 200) {
+                        AtualizaTabela()
+                    }
+                })
+                .catch((error) => {
+                    alert('erro ao deletar jogador da tabela de pontos corridos')
+                    setCarregando(false)
+                });
+
+                await apiC.post("torneio/bucarTimeSorteados", {
+                    "nome": dadosSelecionadosSorteados[i],
+                })
+                    .then(response => {
+                        if (response.status === 200) {
+                            deletarTimeSorteado(response.data)
+                            setCarregando(false)
+                        }
+                    })
+                    .catch((error) => {
+                        alert('erro ao deletar jogador da tabela de times sorteados')
+                        setCarregando(false)
+                    });
+        }
+
+
+    }
+
+   async function deletarTimeSorteado(item){
+    await apiC.post("torneio/deletarTimeSorteado", {
+        "id": item[0].id,
+    })
+   }
+
+    function handleSelecionarTodos() {
+        itens.map((item, i) => {
+            if (itens[i].id) {
+                dadosSelecionados.push(itens[i].id);
+                dadosSelecionadosSorteados.push(itens[i].nome);
+            }
+        })
+    }
+
+    function handleDesselecionar(simcard, nome) {
+        for (let i = 0; i < dadosSelecionados.length; i++) {
+            if (dadosSelecionados[i] == simcard) {
+                dadosSelecionados.splice(i, 1);
+                break;
+            }
+            if (dadosSelecionadosSorteados[i] == nome) {
+                dadosSelecionadosSorteados.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    function handleDesselecionarTodos() {
+    }
+
     async function buscarTimesSorteados() {
         await apiC.get("torneio/buscarTimeSorteado")
             .then(response => {
                 if (response.status === 200) {
                     if (response.data.length > 0) {
-                        if(!timesS.length > 0){
+                        if (!timesS.length > 0) {
                             for (let i = 0; i < response.data.length; i++) {
                                 timesM.push(response.data[i].nome)
                                 timesS.push(response.data[i].id)
                                 timesSorteadosArray.push(response.data[i].nome)
                             }
                         }
-                        
+
                         setTimesM(timesM)
                         setTesteArray(timesM)
                         setTeste("Testeeee")
@@ -167,6 +287,7 @@ export default function Torneio() {
                                     k++
                                 }
                             }
+                            console.log("fkkkkkkk", itensVar)
                             setItens(JSON.parse(JSON.stringify(itensVar)))
                         }
 
@@ -184,11 +305,13 @@ export default function Torneio() {
 
     async function sortearTimes() {
         let numeroSorteado = []
+        console.log("fffjjhdfjdj 222222", timesM )
         let sorteado1 = Math.floor(Math.random() * timesM.length)
         let sorteado2 = Math.floor(Math.random() * timesM.length)
         while (sorteado2 == sorteado1) {
             sorteado2 = Math.floor(Math.random() * timesM.length)
         }
+        console.log("fffjjhdfjdj", timesM )
         let sorteado3 = Math.floor(Math.random() * timesM.length)
         while (sorteado3 == sorteado2 || sorteado3 == sorteado1) {
             sorteado3 = Math.floor(Math.random() * timesM.length)
@@ -205,7 +328,7 @@ export default function Torneio() {
                 "nome": timesM[numeroSorteado[i]]
             }).then(response => {
                 if (response.status === 200) {
-                    
+
                 }
                 setCarregando(false)
             })
@@ -215,9 +338,9 @@ export default function Torneio() {
                 });
         }
         buscarTimesSorteados()
-        }
+    }
 
-     
+
 
     // useEffect(() => {
 
@@ -266,7 +389,7 @@ export default function Torneio() {
     }
 
 
-    async function VerificaParaAtualizaTime(nome, pontos, saldo, timeperdedor ) {
+    async function VerificaParaAtualizaTime(nome, pontos, saldo, timeperdedor) {
         await apiC.post("torneio/bucarNome", {
             "nome": nome
         })
@@ -285,24 +408,24 @@ export default function Torneio() {
             .catch((error) => {
                 setCarregando(false)
             });
-            await apiC.post("torneio/bucarNome", {
-                "nome": timeperdedor
-            })
-                .then(response => {
-                    if (response.status === 200) {
-                        if (response.data.length > 0) {
-                            atualizaTimePerdedor(response.data, saldo)
-                        } else {
-                            alert('nome do time perdedor não encontrado')
-                        }
-                        // CASO ENVIO ACONTEÇA A FUNÇÃO ABAIXO TEM O DEVER DE REALIZAR O GET PARA TRAZER OS ARQUIVOS
-    
+        await apiC.post("torneio/bucarNome", {
+            "nome": timeperdedor
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    if (response.data.length > 0) {
+                        atualizaTimePerdedor(response.data, saldo)
+                    } else {
+                        alert('nome do time perdedor não encontrado')
                     }
-                    setCarregando(false)
-                })
-                .catch((error) => {
-                    setCarregando(false)
-                });
+                    // CASO ENVIO ACONTEÇA A FUNÇÃO ABAIXO TEM O DEVER DE REALIZAR O GET PARA TRAZER OS ARQUIVOS
+
+                }
+                setCarregando(false)
+            })
+            .catch((error) => {
+                setCarregando(false)
+            });
 
 
     }
@@ -577,6 +700,7 @@ export default function Torneio() {
                         keyField='id'
                         data={itens}
                         columns={colunas}
+                        selectRow={selecaoLinhas}
                         bootstrap4={true}
                         bordered={false}
                     />
@@ -595,7 +719,9 @@ export default function Torneio() {
                     bordered={false}
                 />
             }
-
+            <Button className="deletar-jogadorr" onClick={(e) => handleDeletar()}>
+                <div>Deletar times selecionados</div>
+            </Button>
             <>
                 <div>
 
@@ -729,16 +855,16 @@ export default function Torneio() {
                         />
                         <label>X</label>
                         <Form.Control
-                            onChange={e => { setTime17(e.target.value); setPlacar3(e.target.value) }}
-                            value={time17}
+                            onChange={e => { setTime177(e.target.value); setPlacar3(e.target.value) }}
+                            value={time177}
                         />
                         <label>{timesSorteadosArray3} </label>
                     </div>
                     <div>
                         <label>{timesSorteadosArray4} </label>
                         <Form.Control
-                            onChange={e => { setTime18(e.target.value); setPlacar4(e.target.value) }}
-                            value={time18}
+                            onChange={e => { setTime188(e.target.value); setPlacar4(e.target.value) }}
+                            value={time188}
                         />
                         <label>X</label>
                         <Form.Control

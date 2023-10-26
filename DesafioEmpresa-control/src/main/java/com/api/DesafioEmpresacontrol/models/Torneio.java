@@ -1,14 +1,18 @@
 package com.api.DesafioEmpresacontrol.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "torneio")
 public class Torneio {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
 
     @Column (name = "nome")
     private String nome;
