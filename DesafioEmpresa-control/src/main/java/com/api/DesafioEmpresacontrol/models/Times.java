@@ -1,9 +1,11 @@
 package com.api.DesafioEmpresacontrol.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "times")
+@Table(name = "times_tb")
 public class Times {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,8 +14,25 @@ public class Times {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "id_liga")
-    private long id_liga;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private NomeLigas nomeLigas;
+
+    public long getNomeLigas() {
+        return nomeLigas.getId();
+    }
+
+    public void setNomeLigas(NomeLigas nomeLigas) {
+        this.nomeLigas = nomeLigas;
+    }
+
+    public NomeLigas getId() {
+        return nomeLigas;
+    }
+
+    public void setId(NomeLigas nomeLigas) {
+        this.nomeLigas = nomeLigas;
+    }
 
     public long getId_time() {
         return id_time;
@@ -31,11 +50,5 @@ public class Times {
         this.nome = nome;
     }
 
-    public long getId_liga() {
-        return id_liga;
-    }
 
-    public void setId_liga(long id_liga) {
-        this.id_liga = id_liga;
-    }
 }

@@ -25,6 +25,12 @@ public class ArtilheiroControler {
                 .findAllByNomeIgnoreCase(ranking.getNome()));
     }
 
+
+    @PostMapping("/inserirNativa")
+    public void inserirNativa(@RequestBody Artilheiro artilheiro) {
+        rankingRepository.Sql();
+    }
+
     @GetMapping("/buscar")
     public ResponseEntity<List<Artilheiro>> findAll(){
         return ResponseEntity.ok(rankingRepository

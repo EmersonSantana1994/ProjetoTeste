@@ -1,6 +1,11 @@
 package com.api.DesafioEmpresacontrol.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ligas")
@@ -8,14 +13,14 @@ public class NomeLigas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_liga;
+    private long id;
 
     public long getId() {
-        return id_liga;
+        return id;
     }
 
-    public void setId(long id_liga) {
-        this.id_liga = id_liga;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -28,4 +33,10 @@ public class NomeLigas {
 
     @Column(name = "nome")
     private String nome;
+
+
+
+    @OneToMany(mappedBy = "nomeLigas")
+    private List<Times> times;
+
 }
