@@ -83,7 +83,7 @@ public class TorneioController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PutMapping("/atualizaTimeSorteado")
+    @PutMapping("/atualiz+aTimeSorteado")
     public TimesSorteados atualizaPontos(@RequestBody TimesSorteados torneio){
         return timesSorteadosRepository.save(torneio);
     }

@@ -78,7 +78,7 @@ export default function MeuCampeonato() {
    useEffect(() => {
         async function iniciarTabela() {
         setCarregando(true)
-        await apiC.get("ranking/buscar")
+        await apiC.post("ranking/buscar")
             .then(response => {
                 if (response.status === 200) {
                     for (let i = 0; i < response.data.length; i++) {
@@ -377,7 +377,7 @@ export default function MeuCampeonato() {
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
    async function inserirData() {
         setCarregando(true)
-        await apiC.get("ranking/buscar")
+        await apiC.post("ranking/buscar")
             .then(response => {
                 if (response.status === 200) {
                     for (let i = 0; i < response.data.length; i++) {

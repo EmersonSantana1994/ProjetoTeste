@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';/*eslint-disable*/
-import '../../css/login/login.css';
+import '../../css/torneio/torneio.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -33,6 +33,68 @@ export default function Torneio() {
     const [time22, setTime22] = useState('');
     const [time177, setTime177] = useState('');
     const [time188, setTime188] = useState('');
+    const [placarSalvo1, setPlacarSalvo1] = useState('');
+    const [placarSalvo2, setPlacarSalvo2] = useState('');
+    const [placarSalvo3, setPlacarSalvo3] = useState('');
+    const [placarSalvo4, setPlacarSalvo4] = useState('');
+    const [placarSalvo5, setPlacarSalvo5] = useState('');
+    const [placarSalvo6, setPlacarSalvo6] = useState('');
+    const [placarSalvo7, setPlacarSalvo7] = useState('');
+    const [placarSalvo8, setPlacarSalvo8] = useState('');
+    const [placarSalvo9, setPlacarSalvo9] = useState('');
+    const [placarSalvo10, setPlacarSalvo10] = useState('');
+    const [placarSalvo11, setPlacarSalvo11] = useState('');
+    const [placarSalvo12, setPlacarSalvo12] = useState('');
+    const [placarSalvo13, setPlacarSalvo13] = useState('');
+    const [placarSalvo14, setPlacarSalvo14] = useState('');
+    const [placarSalvo15, setPlacarSalvo15] = useState('');
+    const [placarSalvo16, setPlacarSalvo16] = useState('');
+    const [placarSalvo17, setPlacarSalvo17] = useState('');
+    const [placarSalvo18, setPlacarSalvo18] = useState('');
+    const [placarSalvo19, setPlacarSalvo19] = useState('');
+    const [placarSalvo20, setPlacarSalvo20] = useState('');
+    const [placarSalvo21, setPlacarSalvo21] = useState('');
+    const [placarSalvo22, setPlacarSalvo22] = useState('');
+    const [placarSalvo23, setPlacarSalvo23] = useState('');
+    const [placarSalvo24, setPlacarSalvo24] = useState('');
+    const [mostrarPlacarSalvo1, setMostrarPlacarSalvo1] = useState(false);
+    const [mostrarPlacarSalvo2, setMostrarPlacarSalvo2] = useState(false);
+    const [mostrarPlacarSalvo3, setMostrarPlacarSalvo3] = useState(false);
+    const [mostrarPlacarSalvo4, setMostrarPlacarSalvo4] = useState(false);
+    const [mostrarPlacarSalvo5, setMostrarPlacarSalvo5] = useState(false);
+    const [mostrarPlacarSalvo6, setMostrarPlacarSalvo6] = useState(false);
+    const [mostrarPlacarSalvo7, setMostrarPlacarSalvo7] = useState(false);
+    const [mostrarPlacarSalvo8, setMostrarPlacarSalvo8] = useState(false);
+    const [mostrarPlacarSalvo9, setMostrarPlacarSalvo9] = useState(false);
+    const [mostrarPlacarSalvo10, setMostrarPlacarSalvo10] = useState(false);
+    const [mostrarPlacarSalvo11, setMostrarPlacarSalvo11] = useState(false);
+    const [mostrarPlacarSalvo12, setMostrarPlacarSalvo12] = useState(false);
+    const [mostrarPlacarSalvo13, setMostrarPlacarSalvo13] = useState(false);
+    const [mostrarPlacarSalvo14, setMostrarPlacarSalvo14] = useState(false);
+    const [mostrarPlacarSalvo15, setMostrarPlacarSalvo15] = useState(false);
+    const [mostrarPlacarSalvo16, setMostrarPlacarSalvo16] = useState(false);
+    const [mostrarPlacarSalvo17, setMostrarPlacarSalvo17] = useState(false);
+    const [mostrarPlacarSalvo18, setMostrarPlacarSalvo18] = useState(false);
+    const [mostrarPlacarSalvo19, setMostrarPlacarSalvo19] = useState(false);
+    const [mostrarPlacarSalvo20, setMostrarPlacarSalvo20] = useState(false);
+    const [mostrarPlacarSalvo21, setMostrarPlacarSalvo21] = useState(false);
+    const [mostrarPlacarSalvo22, setMostrarPlacarSalvo22] = useState(false);
+    const [mostrarPlacarSalvo23, setMostrarPlacarSalvo23] = useState(false);
+    const [mostrarPlacarSalvo24, setMostrarPlacarSalvo24] = useState(false);
+    const [dataPlacar1, setDataPlacar1] = useState('');
+    const [dataPlacar2, setDataPlacar2] = useState('');
+    const [dataPlacar3, setDataPlacar3] = useState('');
+    const [dataPlacar4, setDataPlacar4] = useState('');
+    const [dataPlacar5, setDataPlacar5] = useState('');
+    const [dataPlacar6, setDataPlacar6] = useState('');
+    const [dataPlacar7, setDataPlacar7] = useState('');
+    const [dataPlacar8, setDataPlacar8] = useState('');
+    const [dataPlacar9, setDataPlacar9] = useState('');
+    const [dataPlacar10, setDataPlacar10] = useState('');
+    const [dataPlacar11, setDataPlacar11] = useState('');
+    const [dataPlacar12, setDataPlacar12] = useState('');
+
+
     const [numero1, setNumero1] = useState(0);
     const [numero2, setNumero2] = useState(0);
     const [numero3, setNumero3] = useState(0);
@@ -83,9 +145,150 @@ export default function Torneio() {
         verificaSeTemTimeCadastrado()
     }, [])
 
+
+    useEffect(() => {
+        verificaPlacares()
+    }, [])
+
+    async function formatarData(data){
+        const formData = new Date(data)
+        let dt = formData.toLocaleString('pt-BR')
+return dt
+    }
+
+    async function verificaPlacares() {
+let posicaoPlacar = []
+        for(let i = 0; i < 23; i++){
+            posicaoPlacar.push(i)
+        }
+
+        await apiC.post("torneio/buscarPlacares", {
+            "id": posicaoPlacar,
+        })
+            .then(response => {
+                for(let i = 0; i < response.data.result.length; i++){
+                    if (response.data.result[i].id == 1 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo1(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo1(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar1(dt)
+                    }else if (response.data.result[i].id == 2 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo2(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo2(true)
+                    }else if (response.data.result[i].id == 3 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo3(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo3(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar2(dt)
+                    }else if (response.data.result[i].id == 4 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo4(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo4(true)
+                    }else if (response.data.result[i].id == 5 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo5(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo5(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar3(dt)
+                    }else if (response.data[i].id == 6 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo6(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo6(true)
+                    }else if (response.data[i].id == 7 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo7(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo7(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar4(dt)
+                    }else if (response.data[i].id == 8 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo8(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo8(true)
+                    }else if (response.data[i].id == 9 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo9(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo9(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar5(dt)
+                    }else if (response.data[i].id == 10 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo10(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo10(true)
+                    }else if (response.data[i].id == 11 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo11(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo11(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar6(dt)
+                    }else if (response.data[i].id == 12 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo12(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo12(true)
+                    }else if (response.data[i].id == 13 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo13(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo13(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar7(dt)
+                    }else if (response.data[i].id == 14 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo14(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo14(true)
+                    }else if (response.data[i].id == 15 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo15(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo15(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar8(dt)
+                    }else if (response.data[i].id == 16 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo16(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo16(true)
+                    }else if (response.data[i].id == 17 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo17(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo17(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar9(dt)
+                    }else if (response.data[i].id == 18 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo18(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo18(true)
+                    }else if (response.data[i].id == 19 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo19(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo19(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar10(dt)
+                    }else if (response.data[i].id == 20 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo20(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo20(true)
+                    }else if (response.data[i].id == 21 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo21(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo21(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar11(dt)
+                    }else if (response.data[i].id == 22 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo22(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo22(true)
+                    }else if (response.data[i].id == 23 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo23(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo23(true)
+                        const formData = new Date(response.data.result[i].data)
+                        let dt = formData.toLocaleString('pt-BR')
+                        setDataPlacar12(dt)
+                    }else if (response.data[i].id == 24 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        setPlacarSalvo24(response.data.result[i].resultado)
+                        setMostrarPlacarSalvo24(true)
+                    }
+                }
+             
+            })
+            .catch((error) => {
+              console.log("erro ao chamar os placlares")
+            });
+    }
+
     async function verificaSeTemTimeCadastrado() {
+
         await apiC.post("torneio/buscar")
             .then(response => {
+                console.log("mmmmmmmmmmmmm  2222", response.data)
                 if (response.status === 200) {
                     if (response.data.length > 0) {
                         for (let i = 0; i < response.data.length; i++) {
@@ -96,6 +299,7 @@ export default function Torneio() {
                                     k++
                                 }
                             }
+                            console.log("itensVar", itensVar)
                             setItens(JSON.parse(JSON.stringify(itensVar)))
                         }
                         buscarTimesSorteados()
@@ -180,29 +384,29 @@ export default function Torneio() {
                     setCarregando(false)
                 });
 
-                await apiC.post("torneio/bucarTimeSorteados", {
-                    "nome": dadosSelecionadosSorteados[i],
-                })
-                    .then(response => {
-                        if (response.status === 200) {
-                            deletarTimeSorteado(response.data)
-                            setCarregando(false)
-                        }
-                    })
-                    .catch((error) => {
-                        alert('erro ao deletar jogador da tabela de times sorteados')
+            await apiC.post("torneio/bucarTimeSorteados", {
+                "nome": dadosSelecionadosSorteados[i],
+            })
+                .then(response => {
+                    if (response.status === 200) {
+                        deletarTimeSorteado(response.data)
                         setCarregando(false)
-                    });
+                    }
+                })
+                .catch((error) => {
+                    alert('erro ao deletar jogador da tabela de times sorteados')
+                    setCarregando(false)
+                });
         }
 
 
     }
 
-   async function deletarTimeSorteado(item){
-    await apiC.post("torneio/deletarTimeSorteado", {
-        "id": item[0].id,
-    })
-   }
+    async function deletarTimeSorteado(item) {
+        await apiC.post("torneio/deletarTimeSorteado", {
+            "id": item[0].id,
+        })
+    }
 
     function handleSelecionarTodos() {
         itens.map((item, i) => {
@@ -230,8 +434,9 @@ export default function Torneio() {
     }
 
     async function buscarTimesSorteados() {
-        await apiC.get("torneio/buscarTimeSorteado")
+        await apiC.post("torneio/buscarTimeSorteado")
             .then(response => {
+                console.log("eeeeeee", response)
                 if (response.status === 200) {
                     if (response.data.length > 0) {
                         if (!timesS.length > 0) {
@@ -275,6 +480,7 @@ export default function Torneio() {
     }
 
     async function AtualizaTabela() {
+        console.log("mmmmmmmmmmmmm")
         await apiC.post("torneio/buscar")
             .then(response => {
                 if (response.status === 200) {
@@ -305,13 +511,13 @@ export default function Torneio() {
 
     async function sortearTimes() {
         let numeroSorteado = []
-        console.log("fffjjhdfjdj 222222", timesM )
+        console.log("fffjjhdfjdj 222222 ", timesM)
         let sorteado1 = Math.floor(Math.random() * timesM.length)
         let sorteado2 = Math.floor(Math.random() * timesM.length)
         while (sorteado2 == sorteado1) {
             sorteado2 = Math.floor(Math.random() * timesM.length)
         }
-        console.log("fffjjhdfjdj", timesM )
+        console.log("fffjjhdfjdj", timesM)
         let sorteado3 = Math.floor(Math.random() * timesM.length)
         while (sorteado3 == sorteado2 || sorteado3 == sorteado1) {
             sorteado3 = Math.floor(Math.random() * timesM.length)
@@ -545,9 +751,541 @@ export default function Torneio() {
             && !placar4 == "1" && !placar4 == "2" && !placar4 == "3" && !placar4 == "4") {
             alert("Placar de um dos resultados não corresponde ao que campeonato exige")
         }
+        salvarPlacar()
+    }
+    for (let i = 0; i < dadosSelecionados.length; i++)
 
+        useEffect(() => {
+            buscarlPlacar()
+        }, [])
+
+    async function buscarlPlacar() {
+        apiC.post("torneio/buscarTodosPlacar", {
+        })
+            .then(response => {
+                for (let i = 0; i < response.data.length; i++) {
+                    if(response.data.id[i] == i){
+                        if (response.data.resultado[i] != '') {
+
+                        }
+                    }
+                }
+
+                setMostrarPlacarSalvo1(true)
+            })
+            .catch((error) => {
+                alert('erro ao trazer o placar ', time1)
+            });
     }
 
+
+    async function salvarPlacar() {
+        if (time1 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 1,
+                "resultado": time1
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 1,
+                    })
+                        .then(response => {
+                            setPlacarSalvo1(response.data.resultado)
+                            setMostrarPlacarSalvo1(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time1)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time1)
+                });
+        }
+        if (time2 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 2,
+                "resultado": time2
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 2,
+                    })
+                        .then(response => {
+                            setPlacarSalvo2(response.data.resultado)
+                            setMostrarPlacarSalvo2(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time2)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time2)
+                });
+        }
+        if (time3 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 3,
+                "resultado": time3
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 3,
+                    })
+                        .then(response => {
+                            setPlacarSalvo3(response.data.resultado)
+                            setMostrarPlacarSalvo3(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time3)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time3)
+                });
+        }
+        if (time4 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 4,
+                "resultado": time4
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 4,
+                    })
+                        .then(response => {
+                            setPlacarSalvo4(response.data.resultado)
+                            setMostrarPlacarSalvo4(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time4)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time4)
+                });
+        }
+        if (time5 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 5,
+                "resultado": time5
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 5,
+                    })
+                        .then(response => {
+                            setPlacarSalvo5(response.data.resultado)
+                            setMostrarPlacarSalvo5(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time5)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time5)
+                });
+        }
+        if (time6 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 6,
+                "resultado": time6
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 6,
+                    })
+                        .then(response => {
+                            setPlacarSalvo6(response.data.resultado)
+                            setMostrarPlacarSalvo6(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time6)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time6)
+                });
+        }
+        if (time7 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 7,
+                "resultado": time7
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 7,
+                    })
+                        .then(response => {
+                            setPlacarSalvo7(response.data.resultado)
+                            setMostrarPlacarSalvo7(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time7)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time7)
+                });
+        }
+        if (time8 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 8,
+                "resultado": time8
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 8,
+                    })
+                        .then(response => {
+                            setPlacarSalvo8(response.data.resultado)
+                            setMostrarPlacarSalvo8(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time8)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time8)
+                });
+        }
+        if (time9 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 9,
+                "resultado": time9
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 9,
+                    })
+                        .then(response => {
+                            setPlacarSalvo9(response.data.resultado)
+                            setMostrarPlacarSalvo9(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time9)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time9)
+                });
+        }
+        if (time10 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 10,
+                "resultado": time10
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 10,
+                    })
+                        .then(response => {
+                            setPlacarSalvo10(response.data.resultado)
+                            setMostrarPlacarSalvo10(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time10)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time10)
+                });
+        }
+        if (time11 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 11,
+                "resultado": time11
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 11,
+                    })
+                        .then(response => {
+                            setPlacarSalvo11(response.data.resultado)
+                            setMostrarPlacarSalvo11(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time11)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time11)
+                });
+        }
+        if (time12 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 12,
+                "resultado": time12
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 12,
+                    })
+                        .then(response => {
+                            setPlacarSalvo12(response.data.resultado)
+                            setMostrarPlacarSalvo12(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time12)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time12)
+                });
+        }
+        if (time13 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 13,
+                "resultado": time13
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 13,
+                    })
+                        .then(response => {
+                            setPlacarSalvo13(response.data.resultado)
+                            setMostrarPlacarSalvo13(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time13)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time13)
+                });
+        }
+        if (time14 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 14,
+                "resultado": time14
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 14,
+                    })
+                        .then(response => {
+                            setPlacarSalvo14(response.data.resultado)
+                            setMostrarPlacarSalvo14(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time14)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time14)
+                });
+        }
+        if (time15 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 15,
+                "resultado": time15
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 15,
+                    })
+                        .then(response => {
+                            setPlacarSalvo15(response.data.resultado)
+                            setMostrarPlacarSalvo15(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time15)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time15)
+                });
+        }
+        if (time16 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 16,
+                "resultado": time16
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 16,
+                    })
+                        .then(response => {
+                            setPlacarSalvo16(response.data.resultado)
+                            setMostrarPlacarSalvo16(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time16)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time16)
+                });
+        }
+        if (time17 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 17,
+                "resultado": time17
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 17,
+                    })
+                        .then(response => {
+                            setPlacarSalvo17(response.data.resultado)
+                            setMostrarPlacarSalvo17(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time17)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time17)
+                });
+        }
+        if (time18 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 18,
+                "resultado": time18
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 18,
+                    })
+                        .then(response => {
+                            setPlacarSalvo18(response.data.resultado)
+                            setMostrarPlacarSalvo18(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time18)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time18)
+                });
+        }
+        if (time19 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 19,
+                "resultado": time19
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 19,
+                    })
+                        .then(response => {
+                            setPlacarSalvo19(response.data.resultado)
+                            setMostrarPlacarSalvo19(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time19)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time19)
+                });
+        }
+        if (time20 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 20,
+                "resultado": time20
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 20,
+                    })
+                        .then(response => {
+                            setPlacarSalvo20(response.data.resultado)
+                            setMostrarPlacarSalvo20(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time20)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time20)
+                });
+        }
+        if (time21 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 21,
+                "resultado": time21
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 21,
+                    })
+                        .then(response => {
+                            setPlacarSalvo21(response.data.resultado)
+                            setMostrarPlacarSalvo21(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time21)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time21)
+                });
+        }
+        if (time22 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 22,
+                "resultado": time22
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 22,
+                    })
+                        .then(response => {
+                            setPlacarSalvo22(response.data.resultado)
+                            setMostrarPlacarSalvo22(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time22)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time22)
+                });
+        }
+        if (time177 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 23,
+                "resultado": time177
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 23,
+                    })
+                        .then(response => {
+                            setPlacarSalvo23(response.data.resultado)
+                            setMostrarPlacarSalvo23(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time177)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time177)
+                });
+        }
+        if (time188 != '') {
+            await apiC.post("torneio/salvarPlacar", {
+                "id": 24,
+                "resultado": time188
+            })
+                .then(response => {
+                    apiC.post("torneio/buscarPlacar", {
+                        "id": 24,
+                    })
+                        .then(response => {
+                            setPlacarSalvo24(response.data.resultado)
+                            setMostrarPlacarSalvo24(true)
+                        })
+                        .catch((error) => {
+                            alert('erro ao trazer o placar ', time188)
+                        });
+                })
+                .catch((error) => {
+                    alert('erro ao salvar o placar ', time188)
+                });
+        }
+
+    }
 
     // ABAIXO SÃO AS COLUNAS DE ACORDO COM O ARQUIVO ENVIADO (A TAMBÉM OS ID DE CADA DADO)
     const colunas = [
@@ -606,7 +1344,8 @@ export default function Torneio() {
         for (let i = 0; i < enviarBanco.length; i++) {
             await apiC.post("torneio/cadastrarTime", {
                 "nome": enviarBanco[i],
-                "pontos": 0
+                "pontos": 0,
+                "saldo": 0
             }).then(response => {
                 if (response.status === 200) {
                     setCarregando(false)
@@ -691,6 +1430,7 @@ export default function Torneio() {
                     <div>Enviar times digitados</div>
                 </Button>
             }
+            {console.log("uuuuuuuu", itens)}
             {
                 <div>
                     <BootstrapTable
@@ -724,8 +1464,6 @@ export default function Torneio() {
             </Button>
             <>
                 <div>
-
-
                     <h1> Primeiro turno</h1>
                     <Button className="btn-filtro-arquivo" onClick={(e) => sortearTimes()}>
                         <div>Sotear times</div>
@@ -734,176 +1472,236 @@ export default function Torneio() {
                         <label>{timesSorteadosArray1}</label>
                         <Form.Control
                             onChange={e => { setTime1(e.target.value); setPlacar1(e.target.value) }}
-                            value={time1}
+                            value={mostrarPlacarSalvo1 ? placarSalvo1 : time1}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime2(e.target.value); setPlacar2(e.target.value) }}
-                            value={time2}
+                            value={mostrarPlacarSalvo2 ? placarSalvo2 : time2}
                         />
                         <label>{timesSorteadosArray2} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar1}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray3} </label>
                         <Form.Control
                             onChange={e => { setTime3(e.target.value); setPlacar3(e.target.value) }}
-                            value={time3}
+                            value={mostrarPlacarSalvo3 ? placarSalvo3 : time3}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime4(e.target.value); setPlacar4(e.target.value) }}
-                            value={time4}
+                            value={mostrarPlacarSalvo4 ? placarSalvo4 : time4}
                         />
                         <label>{timesSorteadosArray4} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar2}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                     <div>
                         <label>{timesSorteadosArray3} </label>
                         <Form.Control
                             onChange={e => { setTime22(e.target.value); setPlacar3(e.target.value) }}
-                            value={time22}
+                            value={mostrarPlacarSalvo22 ? placarSalvo22 : time22}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime5(e.target.value); setPlacar1(e.target.value) }}
-                            value={time5}
+                            value={mostrarPlacarSalvo5 ? placarSalvo5 : time5}
                         />
                         <label>{timesSorteadosArray1} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar3}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray2} </label>
                         <Form.Control
                             onChange={e => { setTime6(e.target.value); setPlacar2(e.target.value) }}
-                            value={time6}
+                            value={mostrarPlacarSalvo6 ? placarSalvo6 : time6}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime7(e.target.value); setPlacar4(e.target.value) }}
-                            value={time7}
+                            value={mostrarPlacarSalvo7 ? placarSalvo7 : time7}
                         />
                         <label>{timesSorteadosArray4} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar4}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                     <div>
                         <label>{timesSorteadosArray4} </label>
                         <Form.Control
                             onChange={e => { setTime8(e.target.value); setPlacar4(e.target.value) }}
-                            value={time8}
+                            value={mostrarPlacarSalvo8 ? placarSalvo8 : time8}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime9(e.target.value); setPlacar1(e.target.value) }}
-                            value={time9}
+                            value={mostrarPlacarSalvo9 ? placarSalvo9 : time9}
                         />
                         <label>{timesSorteadosArray1} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar5}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray2} </label>
                         <Form.Control
                             onChange={e => { setTime10(e.target.value); setPlacar2(e.target.value) }}
-                            value={time10}
+                            value={mostrarPlacarSalvo10 ? placarSalvo10 : time10}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime11(e.target.value); setPlacar3(e.target.value) }}
-                            value={time11}
+                            value={mostrarPlacarSalvo11 ? placarSalvo11 : time11}
                         />
                         <label>{timesSorteadosArray3} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar6}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                     <h1>Segundo turno</h1>
                     <div>
                         <label>{timesSorteadosArray1} </label>
                         <Form.Control
                             onChange={e => { setTime12(e.target.value); setPlacar1(e.target.value) }}
-                            value={time12}
+                            value={mostrarPlacarSalvo12 ? placarSalvo12 : time12}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime13(e.target.value); setPlacar4(e.target.value) }}
-                            value={time13}
+                            value={mostrarPlacarSalvo13 ? placarSalvo13 : time13}
                         />
                         <label>{timesSorteadosArray4} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar7}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray3} </label>
                         <Form.Control
                             onChange={e => { setTime14(e.target.value); setPlacar3(e.target.value) }}
-                            value={time14}
+                            value={mostrarPlacarSalvo14 ? placarSalvo14 : time14}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime15(e.target.value); setPlacar2(e.target.value) }}
-                            value={time15}
+                            value={mostrarPlacarSalvo15 ? placarSalvo15 : time15}
                         />
                         <label>{timesSorteadosArray2} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar8}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                     <div>
                         <label>{timesSorteadosArray1} </label>
                         <Form.Control
                             onChange={e => { setTime16(e.target.value); setPlacar1(e.target.value) }}
-                            value={time16}
+                            value={mostrarPlacarSalvo16 ? placarSalvo16 : time16}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime177(e.target.value); setPlacar3(e.target.value) }}
-                            value={time177}
+                            value={mostrarPlacarSalvo23 ? placarSalvo23 : time177}
                         />
                         <label>{timesSorteadosArray3} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar9}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray4} </label>
                         <Form.Control
                             onChange={e => { setTime188(e.target.value); setPlacar4(e.target.value) }}
-                            value={time188}
+                            value={mostrarPlacarSalvo24 ? placarSalvo24 : time188}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime17(e.target.value); setPlacar2(e.target.value) }}
-                            value={time17}
+                            value={mostrarPlacarSalvo17 ? placarSalvo17 : time17}
                         />
                         <label>{timesSorteadosArray2} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar10}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                     <div>
                         <label>{timesSorteadosArray2} </label>
                         <Form.Control
                             onChange={e => { setTime18(e.target.value); setPlacar2(e.target.value) }}
-                            value={time18}
+                            value={mostrarPlacarSalvo18 ? placarSalvo18 : time18}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime19(e.target.value); setPlacar1(e.target.value) }}
-                            value={time19}
+                            value={mostrarPlacarSalvo19 ? placarSalvo19 : time19}
                         />
                         <label>{timesSorteadosArray1} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar11}
+                        />
                     </div>
                     <div>
                         <label>{timesSorteadosArray4} </label>
                         <Form.Control
                             onChange={e => { setTime20(e.target.value); setPlacar4(e.target.value) }}
-                            value={time20}
+                            value={mostrarPlacarSalvo20 ? placarSalvo20 : time20}
                         />
                         <label>X</label>
                         <Form.Control
                             onChange={e => { setTime21(e.target.value); setPlacar3(e.target.value) }}
-                            value={time21}
+                            value={mostrarPlacarSalvo21 ? placarSalvo21 : time21}
                         />
                         <label>{timesSorteadosArray3} </label>
+                        <label className="label-data">Data</label>
+                        <Form.Control
+                            className="label-data-label"
+                            value={dataPlacar12}
+                        />
                     </div>
                     <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Arquivo</div>
+                        <div>Enviar Resultado</div>
                     </Button>
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';/*eslint-disable*/
+import React, { useState} from 'react';/*eslint-disable*/
 import '../../css/login/upload.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";

@@ -1,6 +1,6 @@
 {
 
     "m2": {
-        "ipC": "localhost:8080"
+        "ipC": "localhost:3000/api/"
     }
   }

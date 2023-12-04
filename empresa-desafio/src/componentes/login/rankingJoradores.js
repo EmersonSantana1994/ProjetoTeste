@@ -26,10 +26,11 @@ export default function RankingJogadores() {
             inserirData() 
         }, [])
 
+
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
    async function inserirData() {
         setCarregando(true)
-        await apiC.get("rankingJogadores/buscar")
+        await apiC.post("rankingJogadores/buscar")
             .then(response => {
                 if (response.status === 200) {
                     for (let i = 0; i < response.data.length; i++) {

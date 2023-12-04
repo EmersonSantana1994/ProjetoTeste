@@ -29,7 +29,7 @@ export default function Artilheiro() {
     async function inserirData() {
         let somaTotalGols = 0
         setMensagemTabela('Inserindo na tabela..')
-        await apiC.get("artilheiro/buscar")
+        await apiC.post("artilheiro/buscar")
             .then(response => {
                 if (response.status === 200) {
                     for (let i = 0; i < response.data.length; i++) {
