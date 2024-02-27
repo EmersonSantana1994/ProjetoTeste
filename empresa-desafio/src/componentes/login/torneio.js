@@ -147,6 +147,7 @@ export default function Torneio() {
 
 
     useEffect(() => {
+        console.log("ggggg")
         verificaPlacares()
     }, [])
 
@@ -157,16 +158,15 @@ return dt
     }
 
     async function verificaPlacares() {
+        console.log("mas e aqui foi???")
 let posicaoPlacar = []
-        for(let i = 0; i < 23; i++){
-            posicaoPlacar.push(i)
-        }
 
         await apiC.post("torneio/buscarPlacares", {
-            "id": posicaoPlacar,
         })
             .then(response => {
+                console.log("ppppppp", response.data.result )
                 for(let i = 0; i < response.data.result.length; i++){
+                    console.log("response.data.result[i].id", response.data.result[i].id)
                     if (response.data.result[i].id == 1 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo1(response.data.result[i].resultado)
                         setMostrarPlacarSalvo1(true)
@@ -191,88 +191,90 @@ let posicaoPlacar = []
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar3(dt)
-                    }else if (response.data[i].id == 6 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 6 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo6(response.data.result[i].resultado)
                         setMostrarPlacarSalvo6(true)
-                    }else if (response.data[i].id == 7 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 7 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo7(response.data.result[i].resultado)
                         setMostrarPlacarSalvo7(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar4(dt)
-                    }else if (response.data[i].id == 8 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 8 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo8(response.data.result[i].resultado)
                         setMostrarPlacarSalvo8(true)
-                    }else if (response.data[i].id == 9 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 9 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo9(response.data.result[i].resultado)
                         setMostrarPlacarSalvo9(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar5(dt)
-                    }else if (response.data[i].id == 10 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 10 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo10(response.data.result[i].resultado)
                         setMostrarPlacarSalvo10(true)
-                    }else if (response.data[i].id == 11 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 11 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo11(response.data.result[i].resultado)
                         setMostrarPlacarSalvo11(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar6(dt)
-                    }else if (response.data[i].id == 12 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 12 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo12(response.data.result[i].resultado)
                         setMostrarPlacarSalvo12(true)
-                    }else if (response.data[i].id == 13 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 13 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo13(response.data.result[i].resultado)
                         setMostrarPlacarSalvo13(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar7(dt)
-                    }else if (response.data[i].id == 14 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 14 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo14(response.data.result[i].resultado)
                         setMostrarPlacarSalvo14(true)
-                    }else if (response.data[i].id == 15 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 15 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo15(response.data.result[i].resultado)
                         setMostrarPlacarSalvo15(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar8(dt)
-                    }else if (response.data[i].id == 16 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 16 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo16(response.data.result[i].resultado)
                         setMostrarPlacarSalvo16(true)
-                    }else if (response.data[i].id == 17 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 17 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo17(response.data.result[i].resultado)
                         setMostrarPlacarSalvo17(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar9(dt)
-                    }else if (response.data[i].id == 18 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        console.log("mmmmggggmm", response.data.result[i].data)
+                    }else if (response.data.result[i].id == 18 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo18(response.data.result[i].resultado)
                         setMostrarPlacarSalvo18(true)
-                    }else if (response.data[i].id == 19 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 19 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo19(response.data.result[i].resultado)
                         setMostrarPlacarSalvo19(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar10(dt)
-                    }else if (response.data[i].id == 20 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 20 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo20(response.data.result[i].resultado)
                         setMostrarPlacarSalvo20(true)
-                    }else if (response.data[i].id == 21 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 21 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo21(response.data.result[i].resultado)
                         setMostrarPlacarSalvo21(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar11(dt)
-                    }else if (response.data[i].id == 22 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 22 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo22(response.data.result[i].resultado)
                         setMostrarPlacarSalvo22(true)
-                    }else if (response.data[i].id == 23 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 23 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                        console.log("passou aquii???")
                         setPlacarSalvo23(response.data.result[i].resultado)
                         setMostrarPlacarSalvo23(true)
                         const formData = new Date(response.data.result[i].data)
                         let dt = formData.toLocaleString('pt-BR')
                         setDataPlacar12(dt)
-                    }else if (response.data[i].id == 24 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
+                    }else if (response.data.result[i].id == 24 && response.data.result[i].resultado != '' && response.data.result[i].resultado != null && response.data.result[i].resultado != 'null'){
                         setPlacarSalvo24(response.data.result[i].resultado)
                         setMostrarPlacarSalvo24(true)
                     }
@@ -280,7 +282,7 @@ let posicaoPlacar = []
              
             })
             .catch((error) => {
-              console.log("erro ao chamar os placlares")
+              console.log("erro ao chamar os placlares", error )
             });
     }
 
@@ -288,7 +290,6 @@ let posicaoPlacar = []
 
         await apiC.post("torneio/buscar")
             .then(response => {
-                console.log("mmmmmmmmmmmmm  2222", response.data)
                 if (response.status === 200) {
                     if (response.data.length > 0) {
                         for (let i = 0; i < response.data.length; i++) {
@@ -299,7 +300,6 @@ let posicaoPlacar = []
                                     k++
                                 }
                             }
-                            console.log("itensVar", itensVar)
                             setItens(JSON.parse(JSON.stringify(itensVar)))
                         }
                         buscarTimesSorteados()
@@ -321,7 +321,6 @@ let posicaoPlacar = []
         mode: 'checkbox',
         onSelect: (row, isSelect, rowIndex, e) => {
             if (isSelect) {
-                console.log("fffffffff", row)
                 handleSelecionar(row.id, row.nome)
             } else {
                 handleDesselecionar(row.id, row.nome)
@@ -354,25 +353,19 @@ let posicaoPlacar = []
     };
 
     function handleSelecionar(simcard, nome) {
-        console.log("pppppppp", simcard)
-        console.log("itens", itens)
         for (let i = 0; i < itens.length; i++) {
             if (itens[i].id == simcard) {
                 dadosSelecionados.push(itens[i].id);
                 dadosSelecionadosSorteados.push(itens[i].nome);
                 break;
             }
-            console.log("sssssssss", dadosSelecionados)
         }
     }
 
     async function handleDeletar() {
         setCarregando(true)
-        console.log("dadosSelecionados", dadosSelecionados)
-        for (let i = 0; i < dadosSelecionados.length; i++) {
 
             await apiC.post("torneio/deletar", {
-                "id": dadosSelecionados[i],
             })
                 .then(response => {
                     if (response.status === 200) {
@@ -384,20 +377,17 @@ let posicaoPlacar = []
                     setCarregando(false)
                 });
 
-            await apiC.post("torneio/bucarTimeSorteados", {
-                "nome": dadosSelecionadosSorteados[i],
+            await apiC.post("torneio/deletartimesorteado", {
             })
                 .then(response => {
                     if (response.status === 200) {
-                        deletarTimeSorteado(response.data)
-                        setCarregando(false)
+                        location.reload()
                     }
                 })
                 .catch((error) => {
                     alert('erro ao deletar jogador da tabela de times sorteados')
                     setCarregando(false)
                 });
-        }
 
 
     }
@@ -436,7 +426,6 @@ let posicaoPlacar = []
     async function buscarTimesSorteados() {
         await apiC.post("torneio/buscarTimeSorteado")
             .then(response => {
-                console.log("eeeeeee", response)
                 if (response.status === 200) {
                     if (response.data.length > 0) {
                         if (!timesS.length > 0) {
@@ -480,7 +469,6 @@ let posicaoPlacar = []
     }
 
     async function AtualizaTabela() {
-        console.log("mmmmmmmmmmmmm")
         await apiC.post("torneio/buscar")
             .then(response => {
                 if (response.status === 200) {
@@ -493,7 +481,6 @@ let posicaoPlacar = []
                                     k++
                                 }
                             }
-                            console.log("fkkkkkkk", itensVar)
                             setItens(JSON.parse(JSON.stringify(itensVar)))
                         }
 
@@ -511,13 +498,11 @@ let posicaoPlacar = []
 
     async function sortearTimes() {
         let numeroSorteado = []
-        console.log("fffjjhdfjdj 222222 ", timesM)
         let sorteado1 = Math.floor(Math.random() * timesM.length)
         let sorteado2 = Math.floor(Math.random() * timesM.length)
         while (sorteado2 == sorteado1) {
             sorteado2 = Math.floor(Math.random() * timesM.length)
         }
-        console.log("fffjjhdfjdj", timesM)
         let sorteado3 = Math.floor(Math.random() * timesM.length)
         while (sorteado3 == sorteado2 || sorteado3 == sorteado1) {
             sorteado3 = Math.floor(Math.random() * timesM.length)
@@ -557,6 +542,8 @@ let posicaoPlacar = []
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
 
     async function atualizaTime(dados, pontos, saldo) {
+        console.log("novos pontos", pontos )
+        console.log("pontos anteriores", dados[0].pontos )
         setCarregando(true)
         await apiC.put("torneio/atualizaTime", {
             "id": dados[0].id,
@@ -596,6 +583,7 @@ let posicaoPlacar = []
 
 
     async function VerificaParaAtualizaTime(nome, pontos, saldo, timeperdedor) {
+        console.log("quantas vezes?")
         await apiC.post("torneio/bucarNome", {
             "nome": nome
         })
@@ -634,116 +622,212 @@ let posicaoPlacar = []
             });
 
 
+    }   
+
+    async function limparPlacar(p1, p2){
+        if(p1 == 1){
+setPlacar1('')
+console.log("........ 11")
+        }
+        if(p2 == 2){
+            setPlacar2('')
+            console.log("........ 2222")
+                    }
     }
 
-    async function rodada() {
-        if (placar1 == "3" && placar2 == "2") {
+    async function rodada(rod) {
+        if (placar1 == "3" && placar2 == "2" && rod == "1") {
             VerificaParaAtualizaTime(timesSorteadosArray1, 1, 1, timesSorteadosArray2)
-        } else if (placar1 == "3" && placar2 == "1") {
+            setPlacar1('') 
+            setPlacar2('')
+        } else if (placar1 == "3" && placar2 == "1" && rod == "1") {
             VerificaParaAtualizaTime(timesSorteadosArray1, 2, 2, timesSorteadosArray2)
-        } else if (placar1 == "4" && placar2 == "0") {
+            setPlacar1('') 
+            setPlacar2('')
+        } else if (placar1 == "4" && placar2 == "0" && rod == "1") {
             VerificaParaAtualizaTime(timesSorteadosArray1, 3, 4, timesSorteadosArray2)
+            setPlacar1('') 
+            setPlacar2('')
         }
-        if (placar1 == "3" && placar3 == "2") {
+        if (placar1 == "3" && placar3 == "2" && rod == "2") {
+            console.log("22222222")
             placarTime1 = placarTime1 + 1
             VerificaParaAtualizaTime(timesSorteadosArray1, 1, 1, timesSorteadosArray3)
-        } else if (placar1 == "3" && placar3 == "1") {
+            setPlacar1('') 
+            setPlacar3('')
+        } else if (placar1 == "3" && placar3 == "1" && rod == "2") {
             placarTime1 = placarTime1 + 2
             VerificaParaAtualizaTime(timesSorteadosArray1, 2, 2, timesSorteadosArray3)
-        } else if (placar1 == "4" && placar3 == "0") {
+            setPlacar1('') 
+            setPlacar3('')
+        } else if (placar1 == "4" && placar3 == "0" && rod == "2") {
             placarTime1 = placarTime1 + 3
             VerificaParaAtualizaTime(timesSorteadosArray1, 3, 4, timesSorteadosArray3)
+            setPlacar1('') 
+            setPlacar3('')
         }
-        if (placar1 == "3" && placar4 == "2") {
+        if (placar1 == "3" && placar4 == "2" && rod == "3") {
+            console.log("333333333")
             placarTime1 = placarTime1 + 1
             VerificaParaAtualizaTime(timesSorteadosArray1, 1, 1, timesSorteadosArray4)
-        } else if (placar1 == "3" && placar4 == "1") {
+            setPlacar1('') 
+            setPlacar4('')
+        } else if (placar1 == "3" && placar4 == "1" && rod == "3") {
             placarTime1 = placarTime1 + 2
             VerificaParaAtualizaTime(timesSorteadosArray1, 2, 2, timesSorteadosArray4)
-        } else if (placar1 == "4" && placar4 == "0") {
+            setPlacar1('') 
+            setPlacar4('')
+        } else if (placar1 == "4" && placar4 == "0" && rod == "3") {
             placarTime1 = placarTime1 + 3
             VerificaParaAtualizaTime(timesSorteadosArray1, 3, 4, timesSorteadosArray4)
+            setPlacar1('') 
+            setPlacar4('')
         }
-        if (placar2 == "3" && placar1 == "2") {
+        if (placar2 == "3" && placar1 == "2" && rod == "1") {
+            setPlacar1('') 
+            setPlacar2('')
+            console.log("entrou aqui simmmmmmmmmmm", placar1)
             placarTime2 = placarTime2 + 1
+           await limparPlacar(1,2)
+            console.log("entrou aqui simmmmmmmmmmm 222", placar1)
             VerificaParaAtualizaTime(timesSorteadosArray2, 1, 1, timesSorteadosArray1)
-        } else if (placar2 == "3" && placar1 == "1") {
+        } else if (placar2 == "3" && placar1 == "1" && rod == "1") {
             placarTime2 = placarTime2 + 2
             VerificaParaAtualizaTime(timesSorteadosArray2, 2, 2, timesSorteadosArray1)
-        } else if (placar2 == "4" && placar1 == "0") {
+            setPlacar1('') 
+            setPlacar2('')
+        } else if (placar2 == "4" && placar1 == "0" && rod == "1") {
             placarTime2 = placarTime2 + 3
             VerificaParaAtualizaTime(timesSorteadosArray2, 3, 4, timesSorteadosArray1)
+            setPlacar1('') 
+            setPlacar2('')
         }
-        if (placar2 == "3" && placar3 == "2") {
+        if (placar2 == "3" && placar3 == "2" && rod == "3") {
+            console.log("6666666666")
             VerificaParaAtualizaTime(timesSorteadosArray2, 1, 1, timesSorteadosArray3)
-        } else if (placar2 == "3" && placar3 == "1") {
+            setPlacar3('') 
+            setPlacar2('')
+        } else if (placar2 == "3" && placar3 == "1" && rod == "3") {
             VerificaParaAtualizaTime(timesSorteadosArray2, 2, 2, timesSorteadosArray3)
-        } else if (placar2 == "4" && placar3 == "0") {
+            setPlacar3('') 
+            setPlacar2('')
+        } else if (placar2 == "4" && placar3 == "0" && rod == "3") {
             VerificaParaAtualizaTime(timesSorteadosArray2, 3, 4, timesSorteadosArray3)
+            setPlacar3('') 
+            setPlacar2('')
         }
-        if (placar2 == "3" && placar4 == "2") {
+        if (placar2 == "3" && placar4 == "2" && rod == "2") {
+            console.log("77777777777")
             VerificaParaAtualizaTime(timesSorteadosArray2, 1, 1, timesSorteadosArray4)
-        } else if (placar2 == "3" && placar4 == "1") {
+            setPlacar4('') 
+            setPlacar2('')
+        } else if (placar2 == "3" && placar4 == "1" && rod == "2") {
             VerificaParaAtualizaTime(timesSorteadosArray2, 2, 2, timesSorteadosArray4)
-        } else if (placar2 == "4" && placar4 == "0") {
+            setPlacar4('') 
+            setPlacar2('')
+        } else if (placar2 == "4" && placar4 == "0" && rod == "2") {
             VerificaParaAtualizaTime(timesSorteadosArray2, 3, 4, timesSorteadosArray4)
+            setPlacar4('') 
+            setPlacar2('')
         }
-        if (placar3 == "3" && placar1 == "2") {
+        if (placar3 == "3" && placar1 == "2" && rod == "2") {
+            console.log("88888888888", placar1 )
             VerificaParaAtualizaTime(timesSorteadosArray3, 1, 1, timesSorteadosArray1)
-        } else if (placar3 == "3" && placar1 == "1") {
+            setPlacar3('') 
+            setPlacar1('')
+        } else if (placar3 == "3" && placar1 == "1" && rod == "2") {
             VerificaParaAtualizaTime(timesSorteadosArray3, 2, 2, timesSorteadosArray1)
-        } else if (placar3 == "4" && placar1 == "0") {
+            setPlacar3('') 
+            setPlacar1('')
+        } else if (placar3 == "4" && placar1 == "0" && rod == "2") {
             VerificaParaAtualizaTime(timesSorteadosArray3, 3, 4, timesSorteadosArray1)
+            setPlacar3('') 
+            setPlacar1('')
         }
-        if (placar3 == "3" && placar2 == "2") {
+        if (placar3 == "3" && placar2 == "2" && rod == "3") {
+            console.log("999999999999")
             placarTime3 = placarTime3 + 1
             VerificaParaAtualizaTime(timesSorteadosArray3, 1, 1, timesSorteadosArray2)
-        } else if (placar3 == "3" && placar2 == "1") {
+            setPlacar3('') 
+            setPlacar2('')
+        } else if (placar3 == "3" && placar2 == "1" && rod == "3") {
             placarTime3 = placarTime3 + 2
             VerificaParaAtualizaTime(timesSorteadosArray3, 2, 2, timesSorteadosArray2)
-        } else if (placar3 == "4" && placar2 == "0") {
+            setPlacar3('') 
+            setPlacar2('')
+        } else if (placar3 == "4" && placar2 == "0" && rod == "3") {
             placarTime3 = placarTime3 + 3
             VerificaParaAtualizaTime(timesSorteadosArray3, 3, 4, timesSorteadosArray2)
+            setPlacar3('') 
+            setPlacar2('')
         }
-        if (placar3 == "3" && placar4 == "2") {
+        if (placar3 == "3" && placar4 == "2" && rod == "1") {
+            console.log("ddddddddddd")
             placarTime3 = placarTime3 + 1
             VerificaParaAtualizaTime(timesSorteadosArray3, 1, 1, timesSorteadosArray4)
-        } else if (placar3 == "3" && placar4 == "1") {
+            setPlacar3('') 
+            setPlacar4('')
+        } else if (placar3 == "3" && placar4 == "1" && rod == "1") {
             placarTime3 = placarTime3 + 2
             VerificaParaAtualizaTime(timesSorteadosArray3, 2, 2, timesSorteadosArray4)
-        } else if (placar3 == "4" && placar4 == "0") {
+            setPlacar3('') 
+            setPlacar4('')
+        } else if (placar3 == "4" && placar4 == "0" && rod == "1") {
             placarTime3 = placarTime3 + 3
             VerificaParaAtualizaTime(timesSorteadosArray3, 3, 4, timesSorteadosArray4)
+            setPlacar3('') 
+            setPlacar4('')
         }
-        if (placar4 == "3" && placar1 == "2") {
+        if (placar4 == "3" && placar1 == "2" && rod == "3") {
+            console.log("çççççççççç")
             placarTime4 = placarTime4 + 1
             VerificaParaAtualizaTime(timesSorteadosArray4, 1, 1, timesSorteadosArray1)
-        } else if (placar4 == "3" && placar1 == "1") {
+            setPlacar1('') 
+            setPlacar4('')
+        } else if (placar4 == "3" && placar1 == "1" && rod == "3") {
             placarTime4 = placarTime4 + 2
             VerificaParaAtualizaTime(timesSorteadosArray4, 2, 2, timesSorteadosArray1)
-        } else if (placar4 == "4" && placar1 == "0") {
+            setPlacar1('') 
+            setPlacar4('')
+        } else if (placar4 == "4" && placar1 == "0" && rod == "3") {
             placarTime4 = placarTime4 + 3
             VerificaParaAtualizaTime(timesSorteadosArray4, 3, 4, timesSorteadosArray1)
+            setPlacar1('') 
+            setPlacar4('')
         }
-        if (placar4 == "3" && placar2 == "2") {
+        if (placar4 == "3" && placar2 == "2" && rod == "2") {
+            console.log("bbbbbbbbbb")
             placarTime4 = placarTime4 + 1
             VerificaParaAtualizaTime(timesSorteadosArray4, 1, 1, timesSorteadosArray2)
-        } else if (placar4 == "3" && placar2 == "1") {
+            setPlacar2('') 
+            setPlacar4('')
+        } else if (placar4 == "3" && placar2 == "1" && rod == "2") {
             placarTime4 = placarTime4 + 2
             VerificaParaAtualizaTime(timesSorteadosArray4, 2, 2, timesSorteadosArray2)
-        } else if (placar4 == "4" && placar2 == "0") {
+            setPlacar2('') 
+            setPlacar4('')
+        } else if (placar4 == "4" && placar2 == "0" && rod == "2") {
             placarTime4 = placarTime4 + 3
             VerificaParaAtualizaTime(timesSorteadosArray4, 3, 4, timesSorteadosArray2)
+            setPlacar2('') 
+            setPlacar4('')
         }
-        if (placar4 == "3" && placar3 == "2") {
+        if (placar4 == "3" && placar3 == "2" && rod == "1") {
+            console.log("zzzzzzzzzz")
             placarTime4 = placarTime4 + 1
             VerificaParaAtualizaTime(timesSorteadosArray4, 1, 1, timesSorteadosArray3)
-        } else if (placar4 == "3" && placar3 == "1") {
+            setPlacar3('') 
+            setPlacar4('')
+        } else if (placar4 == "3" && placar3 == "1" && rod == "1") {
             placarTime4 = placarTime4 + 2
             VerificaParaAtualizaTime(timesSorteadosArray4, 2, 2, timesSorteadosArray3)
-        } else if (placar4 == "4" && placar3 == "0") {
+            setPlacar3('') 
+            setPlacar4('')
+        } else if (placar4 == "4" && placar3 == "0" && rod == "1") {
             placarTime4 = placarTime4 + 3
             VerificaParaAtualizaTime(timesSorteadosArray4, 3, 4, timesSorteadosArray3)
+            setPlacar3('') 
+            setPlacar4('')
         }
         if (!placar1 == "1" && !placar1 == "2" && !placar1 == "3" && !placar1 == "4"
             && !placar2 == "1" && !placar2 == "2" && !placar2 == "3" && !placar2 == "4"
@@ -753,30 +837,22 @@ let posicaoPlacar = []
         }
         salvarPlacar()
     }
-    for (let i = 0; i < dadosSelecionados.length; i++)
 
-        useEffect(() => {
-            buscarlPlacar()
-        }, [])
-
-    async function buscarlPlacar() {
-        apiC.post("torneio/buscarTodosPlacar", {
+    async function deletarPlacarRodada(p1, p2,p3,p4){
+        let idPlacar = []
+        idPlacar.push(p1,p2,p3,p4)
+      await apiC.post("torneio/deletarPlacar", {
+            "id": idPlacar,
         })
             .then(response => {
-                for (let i = 0; i < response.data.length; i++) {
-                    if(response.data.id[i] == i){
-                        if (response.data.resultado[i] != '') {
-
-                        }
-                    }
-                }
-
-                setMostrarPlacarSalvo1(true)
+                location.reload()
             })
             .catch((error) => {
-                alert('erro ao trazer o placar ', time1)
+                alert('erro ao trazer ao deletar o placar ')
             });
+            
     }
+
 
 
     async function salvarPlacar() {
@@ -1284,7 +1360,7 @@ let posicaoPlacar = []
                     alert('erro ao salvar o placar ', time188)
                 });
         }
-
+        verificaPlacares()
     }
 
     // ABAIXO SÃO AS COLUNAS DE ACORDO COM O ARQUIVO ENVIADO (A TAMBÉM OS ID DE CADA DADO)
@@ -1430,7 +1506,6 @@ let posicaoPlacar = []
                     <div>Enviar times digitados</div>
                 </Button>
             }
-            {console.log("uuuuuuuu", itens)}
             {
                 <div>
                     <BootstrapTable
@@ -1460,7 +1535,7 @@ let posicaoPlacar = []
                 />
             }
             <Button className="deletar-jogadorr" onClick={(e) => handleDeletar()}>
-                <div>Deletar times selecionados</div>
+                <div>Deletar todos os times das tabelas</div>
             </Button>
             <>
                 <div>
@@ -1504,8 +1579,11 @@ let posicaoPlacar = []
                             value={dataPlacar2}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
-                        <div>Enviar Resultado</div>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("1")}>
+                        <div>Enviar Resultado</div> 
+                    </Button>
+                    <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(1,2,3,4)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                     <div>
                         <label>{timesSorteadosArray3} </label>
@@ -1543,8 +1621,11 @@ let posicaoPlacar = []
                             value={dataPlacar4}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("2")}>
                         <div>Enviar Resultado</div>
+                    </Button>
+                    <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(22,5,6,7)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                     <div>
                         <label>{timesSorteadosArray4} </label>
@@ -1582,8 +1663,11 @@ let posicaoPlacar = []
                             value={dataPlacar6}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("3")}>
                         <div>Enviar Resultado</div>
+                    </Button>
+                     <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(8,9,10,11)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                     <h1>Segundo turno</h1>
                     <div>
@@ -1622,8 +1706,11 @@ let posicaoPlacar = []
                             value={dataPlacar8}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("3")}>
                         <div>Enviar Resultado</div>
+                    </Button>
+                     <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(12,13,14,15)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                     <div>
                         <label>{timesSorteadosArray1} </label>
@@ -1661,8 +1748,11 @@ let posicaoPlacar = []
                             value={dataPlacar10}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("2")}>
                         <div>Enviar Resultado</div>
+                    </Button>
+                     <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(16,23,24,17)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                     <div>
                         <label>{timesSorteadosArray2} </label>
@@ -1700,8 +1790,11 @@ let posicaoPlacar = []
                             value={dataPlacar12}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada()}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("1")}>
                         <div>Enviar Resultado</div>
+                    </Button>
+                     <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(18,19,20,21)}>
+                        <div>Deletar placares desta rodada</div> 
                     </Button>
                 </div>
 
@@ -1709,10 +1802,6 @@ let posicaoPlacar = []
                 <div className="campos-texto-login">
 
                 </div>
-
-
-
-
             </>
 
         </>

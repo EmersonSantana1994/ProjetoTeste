@@ -3,6 +3,11 @@
 
 }
 
+.botao-deletar {
+    margin-left: 50px;
+
+}
+
 .label-data-label {
     position: absolute;
     padding-left: 28px;
@@ -17,8 +22,8 @@
 
 .deletar-jogadorr{
     position: absolute;
-    margin-left: -93px;
-    margin-top: -214px;
+    margin-left: 292px;
+    margin-top: -200px;
 }
 
 .label-quanti-hom {
