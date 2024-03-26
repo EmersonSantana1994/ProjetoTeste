@@ -123,8 +123,8 @@ export default function Torneio() {
     const [timesSorteadosArray2, setTimesSorteadosArray2] = useState('');
     const [timesSorteadosArray3, setTimesSorteadosArray3] = useState('');
     const [timesSorteadosArray4, setTimesSorteadosArray4] = useState('');
-
-
+    const [campeao, setCampeao] = useState('');
+    const [mostrarCampeao, setMostrarCampeao] = useState(false);
 
     let totalItens = 0
     let contador = 0
@@ -308,6 +308,32 @@ let posicaoPlacar = []
                     else {
                         alert('nenhum time cadatrado, por favor faça o cadastro dos times')
                         setCadastrarTime(true)
+                    }
+                }
+                setCarregando(false)
+            })
+            .catch((error) => {
+                setCarregando(false)
+            });
+    }
+
+    async function anunciarCampeao() {
+        console.log("passou simmmmmmm")
+        await apiC.post("torneio/buscar")
+            .then(response => {
+                if (response.status === 200) {
+                    if (response.data.length > 0) {
+                        for (let i = 0; i < response.data.length; i++) {
+                            if (contador === i) {
+                                let k = i
+                                for (let j = 0; j < response.data.length; j++) {
+                                    itensVar[k] = response.data[j]
+                                    k++
+                                }
+                            }
+                            setCampeao(JSON.parse(JSON.stringify(itensVar[0].nome)))
+                        }
+                        setMostrarCampeao(true)
                     }
                 }
                 setCarregando(false)
@@ -829,6 +855,7 @@ console.log("........ 11")
             setPlacar3('') 
             setPlacar4('')
         }
+        console.log("testeeeeeeddddd", )
         if (!placar1 == "1" && !placar1 == "2" && !placar1 == "3" && !placar1 == "4"
             && !placar2 == "1" && !placar2 == "2" && !placar2 == "3" && !placar2 == "4"
             && !placar3 == "1" && !placar3 == "2" && !placar3 == "3" && !placar3 == "4"
@@ -1537,6 +1564,9 @@ console.log("........ 11")
             <Button className="deletar-jogadorr" onClick={(e) => handleDeletar()}>
                 <div>Deletar todos os times das tabelas</div>
             </Button>
+            {mostrarCampeao && 
+            <div><h1 className="campeao"> O campeoao do torneio é o(a) {campeao} </h1></div>
+            }
             <>
                 <div>
                     <h1> Primeiro turno</h1>
@@ -1790,7 +1820,7 @@ console.log("........ 11")
                             value={dataPlacar12}
                         />
                     </div>
-                    <Button className="btn-filtro-arquivo" onClick={(e) => rodada("1")}>
+                    <Button className="btn-filtro-arquivo" onClick={(e) => {rodada("1"); anunciarCampeao()}}>
                         <div>Enviar Resultado</div>
                     </Button>
                      <Button className="botao-deletar" onClick={(e) => deletarPlacarRodada(18,19,20,21)}>

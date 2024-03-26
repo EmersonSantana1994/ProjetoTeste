@@ -12,6 +12,12 @@
     margin-top: -200px;
 }
 
+.campeao{
+    position: absolute;
+    margin-left: 345px;
+    margin-top: -100px;
+}
+
 .label-quanti-hom {
     width: 100% !important;
     float: left;

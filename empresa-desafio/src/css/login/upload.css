@@ -44,6 +44,18 @@
     width: 100% !important;
 }
 
+.espaco2{
+    width: 40px;
+}
+
+.espaco3{
+    height: 28px;
+}
+
+
+.lado {
+    display: inline-flex;
+}
 
 
 

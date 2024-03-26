@@ -1,45 +1,82 @@
-// import React, { useState, useEffect} from 'react';/*eslint-disable*/
-// import '../../css/login/artilheiro.css';
-// import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
-// import { apiC } from "../../conexoes/api";
-// import BootstrapTable from 'react-bootstrap-table-next';
-// import setaDropdownVerdeAlgar from '../../icones/Captura de tela 2023-09-08 094234.png'
-// import cavalo from '../../icones/Captura de tela 2023-11-24 193610.png'
+import React, { useState } from 'react';/*eslint-disable*/
+import '../../css/torneio/torneio.css';
+import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
+import { apiC } from "../../conexoes/api";
+import BootstrapTable from 'react-bootstrap-table-next';
+import SelectStatusContrato from '../login/selectStatusContrato';
 
-// export default function Netflix() {
+export default function Transferencia() {   
 
-//     const setaDropdown = () => {
-//         return setaDropdownVerdeAlgar
-//     }
 
-//     const cavalos = () => {
-//         return cavalo
-//     }
+    const [nomeTime, setNomeTime] = useState('');
+    const [novoJogador, setNovoJogador] = useState('');
+    const [jogadoSaindo, setJogadoSaindo] = useState('');
 
-//     return (
-//         <>
-//              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link>
-//              <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-//     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-// <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-//   <div class="carousel-inner">
-//     <div class="carousel-item active">
-//       <img class="d-block w-50" src={setaDropdown()} alt="Primeiro Slide"/>
-//     </div>
-//     <div class="carousel-item">
-//       <img class="d-block w-50" src={cavalos()}  alt="Segundo Slide"/>
-//     </div>
-//   </div>
-//   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-//     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-//     <span class="sr-only">Anterior</span>
-//   </a>
-//   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-//     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-//     <span class="sr-only">Próximo</span>
-//   </a>
-// </div>
-//         </>
-//     )
-// }
+
+   async function transferirJogador(){
+
+    await apiC.post("transferir/jogador", {
+        "nomeTime": nomeTime,
+        "novoJogador": novoJogador,
+        "jogadorSaindo": jogadoSaindo
+    })
+    .then(response => {
+        if (response.status === 200) {
+        }
+        setCarregando(false)
+    })
+    .catch((error) => {
+        setCarregando(false)
+    });
+    }
+
+    return (
+        <>
+        <h1>Crie uma pergunta</h1>
+
+        <h3>Que tipo de pergunta deseja fazer?</h3>
+
+        <Form.Control
+                    onChange={e => { setNomeTime(e.target.value) }}
+                    value={nomeTime}
+                />
+                 <h3>Nome do novo jogador do time</h3>
+                 <div className="coluna-alterar-ciclo-vida-1-status-contrato">
+                                    <Form.Label className="fonte-cor-1 label-campo-status-contrato status-contrato-filtro">Status do contrato </Form.Label>
+                                    <div className="break-3"></div>
+                                    <Form.Control name="STATUS_CONTRATO" type="text" value={nomeContrato == 'Selecione' || resetContrato ? '' : nomeContrato} className="d-none" onChange={(e)=> setCdContrato(e.target.value)}/>
+                                    {revelarSelectContrato == false &&
+                                        <Button className="campo-texto-cor-3 campo-select-filtro-b" onClick={() => setRevelarSelectContrato(!revelarSelectContrato)}>
+                                            <div className="fonte-cor-16 label-campo-contrato-filtro">{resetContrato ? "Selecione": nomeContrato ? nomeContrato.split('*')[0] : "Selecione"}</div>
+                                            <img className={revelarSelectContrato ? "campo-select-icone-ativado-filtro nao-selecionavel" : "campo-select-icone-desativado-filtro nao-selecionavel"} src={setaDropdown()} alt="drop" />
+                                        </Button>
+                                    }
+                                    {revelarSelectContrato === true &&
+                                        <SelectStatusContrato
+                                            setRevelarSelectContrato={setRevelarSelectContrato}
+                                            setNomeContrato={setNomeContrato}
+                                            setCdContrato={setCdContrato}
+                                            setFiltroSituacaoContrato={setFiltroSituacaoContrato}
+                                            nomeContrato={nomeContrato}
+                                            rota={"filtroSimcard"}
+                                            setResetContrato={setResetContrato}
+                                        >
+                                        </SelectStatusContrato>
+                                    }
+                                </div>
+        <Form.Control
+                    onChange={e => { setNovoJogador(e.target.value) }}
+                    value={novoJogador}
+                />
+                <h3>Nome do jogador de saida do time</h3>
+        <Form.Control
+                    onChange={e => { setJogadoSaindo(e.target.value) }}
+                    value={jogadoSaindo}
+                />
+                <Button className="btn-filtro-arquivo" onClick={(e) => transferirJogador("1")}>
+                        <div>Enviar</div>
+                    </Button>
+        </>
+        
+    )
+}
