@@ -7,7 +7,7 @@ import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useNavigate } from 'react-router-dom';
 
-export default function TelaLogin() {
+export default function TelaCadastro() {
 
     //VARIAVEIS
     const [mostrarRecuperarSenha, setMostrarRecuperarSenha] = useState('padrao');
@@ -34,41 +34,31 @@ export default function TelaLogin() {
     let contadorMale = 0
     let contadorFemale = 0
 
-
     const navigate = useNavigate();
-    async function paraNavegar() {
+    const paraNavegar = () => {
         navigate('/home')
     }
 
-    async function salvarToken(response) {
-        localStorage.setItem("keyToken", JSON.stringify(response.data.token))
-    }
 
-    //FUNÇÃO DE ENFETUAR O LOGIN
-    async function efetuarLogin() {
-        setLoginError("");
+    //FUNÇÃO DE CADASTRO
+    async function efetuarCadastro(e) {
+        // API CADASTRO
         setCarregando(true)
-        if (!email || !password) {
-            setLoginError("Preencha e-mail e senha!");
-        } else {
-            setCarregando(true)
-            await apiC.post('usuarios/logar', {
-                usuario: email,
-                senha: password
+        await apiC.post('usuarios/cadastrar', {
+            "usuario": emailCadastro,
+            "senha": passwordCadastro
+        })
+            .then(async function (response) {
+                setCarregando(false)
+                setErroAoCadastrar(false)
             })
-                .then(async function (response) {
-                    await salvarToken(response)
-                        await paraNavegar()
-                })
-                .catch(function (error) {
-                    // MENSAGENS DE ERRO APARECERAM CASO LOGIN DER ALGUM ERRO
-                    setCarregando(false)
-                    setLoginError(true)
-                });
-        }
+            .catch(function (error) {
+                console.log("error", error)
+                // CASO ACONTEÇA ALGUM ERRO SERÁ APRESENTADA
+                setCarregando(false)
+                setErroAoCadastrar(true)
+            });
     }
-
-
 
 
 
@@ -83,55 +73,55 @@ export default function TelaLogin() {
             {loginError &&
                 <h4> E-mail inválido ou senha incorreta </h4>
             }
-
-
-
-            {mostrarRecuperarSenha === 'padrao' &&
+            
+            <div>
+                        <Button onClick={(e) => navigate('/')}>Login</Button>
+                    </div>
+        
                 <>
-                    <div>
-                        <div className="email">
-                            <label>E-mail</label>
+                    
+                    <div className="espaco" ></div>
+                    <div className="campos-texto-login">
+                        <div>
+                            <label>Cadastrar e-mail</label>
                             <Form.Control
 
                                 type="email"
                                 placeholder="E-mail"
-                                onChange={e => setEmail(e.target.value)}
-                                value={email}
-                                name="campoEmail"
-                                id="campoEmail"
+                                onChange={e => setEmailCadastro(e.target.value)}
+                                value={emailCadastro}
+                                name="cadastrarEmail"
+                                id="cadastrarEmail"
                             />
+                          
                         </div>
+
                         <div>
-                            <div className='senha'>
-                                <label>Senha</label>
+                            <div>
+                                <label> Cadastrar senha</label>
                                 <FormControl
 
                                     placeholder="Senha"
                                     type={mostrarEsconder}
-                                    onChange={e => setPassword(e.target.value)}
-                                    value={password}
-                                    name="campoSenha"
-                                    id="campoSenha"
+                                    onChange={e => setPasswordCadastro(e.target.value)}
+                                    value={passwordCadastro}
+                                    name="cadastrarSenha"
+                                    id="cadastrarSenha"
                                     maxLength="20"
                                 />
                             </div>
-
+                           
                         </div>
                     </div>
 
-                    <div className='senha'>
-                        <Button onClick={(e) => efetuarLogin()}>Entrar</Button>
+                    <div>
+                        <Button onClick={(e) => efetuarCadastro('/')}>Cadastrar</Button>
                     </div>
-                    <div className="espaco" ></div>
-                    <div className="campos-texto-login">
-                        <div className='cadastrar'>
-                            <Button onClick={(e) => navigate('/cadstrousuario')}>Cadastre-se</Button>
-                        </div>
-                    </div>
-
+                    
                 </>
 
-            }
+          
+
         </>
 
     )

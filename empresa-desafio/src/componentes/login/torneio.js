@@ -3,12 +3,13 @@ import '../../css/torneio/torneio.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function Torneio() {
 
 
     //VARIAVEIS
+    const navigate = useNavigate();
     const [time1, setTime1] = useState('');
     const [time2, setTime2] = useState('');
     const [time3, setTime3] = useState('');
@@ -149,6 +150,21 @@ export default function Torneio() {
     useEffect(() => {
         console.log("ggggg")
         verificaPlacares()
+    }, [])
+
+    useEffect(() => {
+        async function autenticar(e) {
+            await apiC.post("autenticacao/autenticar")
+            .then(response => {
+      console.log("esta autenticado")
+            })
+            .catch((error) => {
+                if(error.response.data == 'não autenticado'){
+                    navigate('/')
+                }
+            });
+        }
+        setTimeout(autenticar, 5000);
     }, [])
 
     async function formatarData(data){
@@ -1498,6 +1514,9 @@ console.log("........ 11")
 
     return (
         <>
+        <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
+                        <div>Home</div>
+                    </Button>
             {carregando &&
                 <h1>carregando..</h1>
             }

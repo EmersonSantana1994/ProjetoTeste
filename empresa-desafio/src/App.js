@@ -13,6 +13,15 @@ import Netflix from './componentes/login/netflix';
 import Cadastro from './componentes/login/cadastro';
 import Times from './componentes/login/timesCadastrados';
 import Jogadores from './componentes/login/jogadoresCadastrados';
+import Ligas from './componentes/login/ligasCadastradas';
+import Test from './componentes/login/teste';
+import Home from './componentes/login/home';
+import Upload from './componentes/login/upload';
+import TelaCadastro from './componentes/login/cadastrarUsuario';
+import PontosTorneio from './componentes/login/pontosTorneio';
+
+
+
 
 function App() {
   return (
@@ -20,7 +29,8 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<TelaLogin />} />
-        <Route path='/upload' element={<UploadArquivos />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/UploadArquivos' element={<UploadArquivos />} />
         <Route path='/ranking' element={<MeuCampeonato />} />
         <Route path='/artilheiro' element={<Artilheiro />} />
         <Route path='/rankingJogadores' element={<RankingJogadores />} />
@@ -31,6 +41,11 @@ function App() {
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/times' element={<Times />} />
         <Route path='/jogadores' element={<Jogadores />} />
+        <Route path='/ligas' element={<Ligas />} />
+        <Route path='/teste' element={<Test />} />
+        <Route path='/upload' element={<Upload />} />
+        <Route path='/cadstrousuario' element={<TelaCadastro />} />
+        <Route path='/pontosTorneio' element={<PontosTorneio />} />
       </Routes>
       </BrowserRouter>
     </div>

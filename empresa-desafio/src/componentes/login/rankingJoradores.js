@@ -3,7 +3,7 @@ import '../../css/login/login.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function RankingJogadores() {
 
@@ -16,6 +16,8 @@ export default function RankingJogadores() {
         const [valorTerLiga, setValorTerLiga] = useState(0);
         const [carregando, setCarregando] = useState(false);
         const [itens, setItens] = useState([]);
+        const navigate = useNavigate();
+        const [confirmLimpar, setConfirmLimpar] = useState(false);
             
         let totalItens = 0
         let contador = 0
@@ -26,6 +28,21 @@ export default function RankingJogadores() {
             inserirData() 
         }, [])
 
+        useEffect(() => {
+            async function autenticar(e) {
+                await apiC.post("autenticacao/autenticar")
+                .then(response => {
+          console.log("esta autenticado")
+                })
+                .catch((error) => {
+                    if(error.response.data === 'não autenticado'){
+                        navigate('/')
+                    }
+                });
+            }
+            setTimeout(autenticar, 5000);
+        }, [])
+
 
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
    async function inserirData() {
@@ -33,6 +50,7 @@ export default function RankingJogadores() {
         await apiC.post("rankingJogadores/buscar")
             .then(response => {
                 if (response.status === 200) {
+                    console.log("oooooooooooooo", response.data)
                     for (let i = 0; i < response.data.length; i++) {
                         if (contador === i) {
                             let k = i
@@ -127,6 +145,18 @@ export default function RankingJogadores() {
         'Crystal', 'Izakson', 'Sky', 'Gradiente', 'Escuro', 'Edson', 'Katchup', 'Luiza'].includes(nomeJogador)
     }
 
+    async function fazerLimpeza(e) {
+        setCarregando(true)
+        await apiC.post('rankingJogadores/deletar')
+            .then(async function (response) {
+               location.reload()
+            })
+            .catch(function (error) {
+                setCarregando(false)
+                setErroAoCadastrar(true)
+            });
+    }
+
     async function handleSalvar(torneio) {
         let liga = []
             liga.push(priLugLiga, segLugLiga, terLugLiga)
@@ -155,6 +185,26 @@ export default function RankingJogadores() {
 
     return (
         <>
+        <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
+                        <div>Home</div>
+                    </Button>
+                    <Button className="limpar" onClick={(e) => setConfirmLimpar(!confirmLimpar)}>
+                <div><h2>Limpar</h2></div>
+            </Button>
+            {confirmLimpar &&
+                <h2>Tem certeza que deseja limpar? Esta a ação irá excluir todos os jogadores da tabela</h2>
+            }
+            
+            {confirmLimpar &&
+                <Button className="btn-filtro-arquivo" onClick={(e) => fazerLimpeza()}>
+                    <div><h2>SIM</h2></div>
+                </Button>
+            }
+             {confirmLimpar &&
+                <Button className="btn-filtro-arquivo" onClick={(e) => setConfirmLimpar(!confirmLimpar)}>
+                    <div><h2>NÃO</h2></div>
+                </Button>
+            }
          {carregando &&
                 <h1>carregando..</h1>
             }

@@ -6,7 +6,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function TimesCadastrados() {
+export default function LigasCadastrados() {
 
 //VARIAVEIS
 
@@ -32,65 +32,30 @@ let itensVar = []
 let itensVar2 = []
 let itensVar3 = []
 let itensVar4 = []
+let token = JSON.parse(localStorage.getItem("keyToken"))
+
+
 
 useEffect(() => {
 
-    async function buscarTimes(e) {
-        
+    async function buscarLigas(e) {
         await apiC.post("listar/ligas", {
+        headers: {
+                'x-access-token': token,
+            }
         })
-        .then(response => {
-            setLiga1(response.data[0].nome)
-            setLiga2(response.data[1].nome)
-            setLiga3(response.data[2].nome)
-            setLiga4(response.data[3].nome)
-            if (response.status === 200) {
-                async function ligas(){                   
-                    await apiC.post("listar/times", {
-                        liga: response.data[0].nome
-                    })
         .then(response => {
             if (response.status === 200) {
                 inserirData(response.data, "1")
             }
         })
         .catch((error) => {
+                alert(error.response.data)
+
         });
                     
-                    await apiC.post("listar/times", {
-                        liga: response.data[1].nome,
-                    })
-        .then(response => {
-        })
-        .catch((error) => {
-        });
-                    
-                    await apiC.post("listar/times", {
-                        liga: response.data[2].nome,
-                    })
-        .then(response => {
-        })
-        .catch((error) => {
-        });
-                    
-                    await apiC.post("listar/times", {
-                        liga: response.data[3].nome,
-                    })
-        .then(response => {
-            if (response.status === 200) {
-                inserirData(response.data, "4")
-            }
-        })
-        .catch((error) => {
-        });
-                }ligas()
-                
-            }
-        })
-        .catch((error) => {
-        });   
-    }
-buscarTimes()
+    }       
+    buscarLigas()
 }, [])
 
 useEffect(() => {
@@ -108,6 +73,8 @@ useEffect(() => {
     setTimeout(autenticar, 5000);
 }, [])
 
+
+
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
     function inserirData(data, liga) {
         for (let i = 0; i < data.length; i++) {
@@ -120,39 +87,10 @@ useEffect(() => {
                             k++
                         }
                     }
+                    console.log("eu sou otariaaaaaaa", itensVar )
                     setItens(JSON.parse(JSON.stringify(itensVar)))
-                }else if(liga == "2"){
-                    if (contador == i) {
-                        let k = i
-                        for (let j = 0; j < data.length; j++) {
-                            itensVar2[k] = data[j]
-                            k++
-                        }
-                    }
-                    setItens2(JSON.parse(JSON.stringify(itensVar2)))
-                }else if(liga == "3"){
-                    if (contador == i) {
-                        let k = i
-                        for (let j = 0; j < data.length; j++) {
-                            itensVar3[k] = data[j]
-                            k++
-                        }
-                    }
-                    setItens3(JSON.parse(JSON.stringify(itensVar3)))
-                }else if(liga == "4"){
-                    if (contador == i) {
-                        let k = i
-                        for (let j = 0; j < data.length; j++) {
-                            itensVar4[k] = data[j]
-                            k++
-                        }
-                    }
-                    setItens4(JSON.parse(JSON.stringify(itensVar4)))
                 }
                 
-            
-
-
         }
 
     }
@@ -164,7 +102,7 @@ useEffect(() => {
             headerClasses: 'nao-selecionavel',
             sort: true,
             text: <p>
-                Times
+                Ligas
             </p>,
             formatter: (cell, row) => {
                 return <p>{cell === null ? '-' : cell}</p>;
@@ -174,12 +112,15 @@ useEffect(() => {
 
 
     async function alterarNome() {
-        await apiC.post("cadastrar/alterarNomeTime", {
+        await apiC.post("cadastrar/alterarNomeLiga", {
             "id": idParaAlterar,
-            "nome": novoNome
+            "nome": novoNome,
+            headers: {
+                'x-access-token': token,
+            }
         }).then(response => {
             if (response.status === 200) {
-                alert("nome alterado")
+                alert("nome da liga alterada")
                 location.reload()
             }
         })
@@ -190,16 +131,19 @@ useEffect(() => {
     }
 
     async function deletarNome() {
-        await apiC.post("cadastrar/deletarNomeTime", {
+        await apiC.post("cadastrar/deletarNomeLiga", {
             "id": idParaAlterar,
+            headers: {
+                'x-access-token': token,
+            }
         }).then(response => {
             if (response.status === 200) {
-                alert("time deletado")
+                alert("liga deletada")
                 location.reload()
             }
         })
         .catch((error) => {
-            alert("erro, jogador não deletado, verificar console de erro")
+            alert("erro, liga não deletado, verificar console de erro")
             console.log("erro ",error)
         });
 
@@ -209,12 +153,11 @@ useEffect(() => {
         setIdParaAlterar(id)
         setNomeParaAlterar(nome)
 }
-
     const selecaoLinhas = {
         mode: 'radio',
         onSelect: (row, isSelect, rowIndex, e) => {
             if (isSelect) {
-                handleSelecionar(row.id_time, row.nome)
+                handleSelecionar(row.id, row.nome)
             }
         },
         selectionRenderer: ({ mode, ...rest }) => {
@@ -240,11 +183,11 @@ useEffect(() => {
     return (
 
         <>
-          <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
+        <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
                         <div>Home</div>
                     </Button>
 {paraDeletarAlgo &&
-                    <h3> Realmente deseja deletar o time {nomeParaAlterar} ? </h3>
+                    <h3> Realmente deseja deletar a liga {nomeParaAlterar} ? </h3>
 
                 }
 
@@ -260,7 +203,6 @@ useEffect(() => {
                 <Button onClick={(e) => setParaDeletarAlgo(!paraDeletarAlgo)}>
                 <div>Não</div>
                 </Button>
-
             }
 
 {paraAlterarAlgo &&
@@ -302,12 +244,13 @@ useEffect(() => {
             <div className="lado">
            
                     <div>
-                    <h3>{liga1}</h3>
+                    <h3>Ligas</h3>
+                    {console.log("llllllv ", itens )}
                         <BootstrapTable
                             hover={true}
                             classes="tabela"
                             condensed={true}
-                            keyField='id_time'
+                            keyField='id'
                             data={itens}
                             columns={colunas}
                             selectRow={selecaoLinhas}
@@ -316,53 +259,8 @@ useEffect(() => {
                         />
                     </div>
                     <div className="espaco2"></div>
-                <div>
-                <h3>{liga2}</h3>
-                    <BootstrapTable
-                        hover={true}
-                        classes="tabela"
-                        condensed={true}
-                        keyField='id_time'
-                        data={itens2}
-                        columns={colunas}
-                        selectRow={selecaoLinhas}
-                        bootstrap4={true}
-                        bordered={false}
-                    />
-                </div>
-                <div className="espaco2"></div>
-                <div>
-                <h3>{liga3}</h3>
-                    <BootstrapTable
-                        hover={true}
-                        classes="tabela"
-                        condensed={true}
-                        keyField='id_time'
-                        data={itens3}
-                        selectRow={selecaoLinhas}
-                        columns={colunas}
-                        bootstrap4={true}
-                        bordered={false}
-                    />
-                </div>
-                <div className="espaco2"></div>
-                <div>
-                <h3>{liga4}</h3>
-                    <BootstrapTable
-                        hover={true}
-                        classes="tabela"
-                        condensed={true}
-                        keyField='id_time'
-                        data={itens4}
-                        selectRow={selecaoLinhas}
-                        columns={colunas}
-                        bootstrap4={true}
-                        bordered={false}
-                    />
-                </div>
-
             </div>
-         
+            
          </>
          
     )

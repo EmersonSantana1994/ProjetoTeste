@@ -43,17 +43,102 @@ export default function TimesCadastrados() {
     const [time14, setTime14] = useState('');
     const [time15, setTime15] = useState('');
     const [time16, setTime16] = useState('');
+    const [nomeParaAlterar, setNomeParaAlterar] = useState('');
+    const [idParaAlterar, setIdParaAlterar] = useState(0);
+    const [paraAlterarAlgo, setParaAlterarAlgo] = useState(false);
+    const [novoNome, setNovoNome] = useState('');
+    const [paraDeletarAlgo, setParaDeletarAlgo] = useState(false);
+    const navigate = useNavigate();
 
     let contador = 0
     let itensVar = []
+    let itensVar2 = []
+    let itensVar3 = []
+    let itensVar4 = []
+    let itensVar5 = []
+    let itensVar6 = []
+    let itensVar7 = []
+    let itensVar8 = []
+    let itensVar9 = []
+    let itensVar10 = []
+    let itensVar11= []
+    let itensVar12 = []
+    let itensVar13 = []
+    let itensVar14 = []
+    let itensVar15 = []
+    let itensVar16 = []
+    let token = JSON.parse(localStorage.getItem("keyToken"))
+    let dadosSelecionados = []
+
+    function handleSelecionar(id, nome) {
+                setIdParaAlterar(id)
+                setNomeParaAlterar(nome)
+    }
+
+
+    const selecaoLinhas = {
+        mode: 'radio',
+        onSelect: (row, isSelect, rowIndex, e) => {
+            if (isSelect) {
+                handleSelecionar(row.id_jogador, row.nome)
+            }
+        },
+        selectionRenderer: ({ mode, ...rest }) => {
+            return (
+                <>
+                    <input type={mode} class="input-checkbox-simcard" {...rest} />
+                    <label class="label-checkbox-simcard"></label>
+                </>
+            )
+        },
+        selectionHeaderRenderer: ({ mode, ...rest }) => {
+            return (
+                <>
+                    <input type={mode} class="input-checkbox-header-simcard" {...rest} />
+                    <label class="label-checkbox-header-simcard"></label>
+                </>
+            )
+        },
+        bgColor: 'row-index-bigger-than-2101'
+    };
 
     useEffect(() => {
+        async function autenticar(e) {
+            await apiC.post("autenticacao/autenticar")
+            .then(response => {
+      console.log("esta autenticado")
+            })
+            .catch((error) => {
+                if(error.response.data === 'não autenticado'){
+                    navigate('/')
+                }
+            });
+        }
+        setTimeout(autenticar, 5000);
+    }, [])
 
+    function handleSelecionarTodos() {
+        // itens.map((item, i) => {
+        //     if (itens[i].id) {
+        //         dadosSelecionados.push(itens[i].id);
+        //         dadosSelecionadosSorteados.push(itens[i].nome);
+        //     }
+        // })
+    }
+
+
+    function handleDesselecionarTodos() {
+    }
+
+    useEffect(() => {
         async function buscarTimes(e) {
-
             await apiC.post("listar/time", {
+                headers: {
+                    'x-access-token': token,
+                }
             })
                 .then(response => {
+                    console.log("ffffffffffff", response.data)
                     setTime1(response.data[0].nome)
                     setTime2(response.data[1].nome)
                     setTime3(response.data[2].nome)
@@ -71,12 +156,17 @@ export default function TimesCadastrados() {
                     setTime15(response.data[14].nome)
                     setTime16(response.data[15].nome)
                     if (response.status === 200) {
+                        console.log("nnnnnnn")
                         async function times() {
                             await apiC.post("listar/jogadores", {
-                                time: response.data[0].nome
+                                time: response.data[0].nome,
+                                headers: {
+                                    'x-access-token': token,
+                                }
                             })
                                 .then(response => {
                                     if (response.status === 200) {
+                                        console.log("alexxxxxxxxxx")
                                         inserirData(response.data, "1")
                                     }
                                 })
@@ -88,12 +178,12 @@ export default function TimesCadastrados() {
                             })
                                 .then(response => {
                                     if (response.status === 200) {
+                                        console.log("response.data", response.data)
                                         inserirData(response.data, "2")
                                     }
                                 })
                                 .catch((error) => {
                                 });
-
                             await apiC.post("listar/jogadores", {
                                 time: response.data[2].nome,
                             })
@@ -249,51 +339,158 @@ export default function TimesCadastrados() {
 
     // FUNÇÃO ABAIXO TEM O DEVER DE SALVAR OS DADOS TRAZIDOS DO BANCO PARA SEREM APRESENTADOS NA TABELA
     function inserirData(data, time) {
+        console.log("nnnnn", data)
         for (let i = 0; i < data.length; i++) {
-            if (contador == i) {
-                let k = i
-                for (let j = 0; j < data.length; j++) {
-                    itensVar[k] = data[j]
-                    k++
-                }
-            }
-
-            if (i == (data.length - 1)) {
+         
                 if (time == "1") {
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar[k] = data[j]
+                            k++
+                        }
+                    }
                     setItens(JSON.parse(JSON.stringify(itensVar)))
                 } else if (time == "2") {
-                    setItens2(JSON.parse(JSON.stringify(itensVar)))
-                } else if (time == "3") {
-                    setItens3(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar2[k] = data[j]
+                            k++
+                        }
+                    }
+                   console.log("uuuuuuu", itensVar)
+                    setItens2(JSON.parse(JSON.stringify(itensVar2)))
+                } 
+                else if (time == "3") {
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar3[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens3(JSON.parse(JSON.stringify(itensVar3)))
                 } else if (time == "4") {
-                    setItens4(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar4[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens4(JSON.parse(JSON.stringify(itensVar4)))
                 } else if (time == "5") {
-                    setItens5(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar5[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens5(JSON.parse(JSON.stringify(itensVar5)))
                 } else if (time == "6") {
-                    setItens6(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar6[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens6(JSON.parse(JSON.stringify(itensVar6)))
                 } else if (time == "7") {
-                    setItens7(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar7[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens7(JSON.parse(JSON.stringify(itensVar7)))
                 } else if (time == "8") {
-                    setItens8(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar8[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens8(JSON.parse(JSON.stringify(itensVar8)))
                 } else if (time == "9") {
-                    setItens9(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar9[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens9(JSON.parse(JSON.stringify(itensVar9)))
                 } else if (time == "10") {
-                    setItens10(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar10[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens10(JSON.parse(JSON.stringify(itensVar10)))
                 } else if (time == "11") {
-                    setItens11(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar11[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens11(JSON.parse(JSON.stringify(itensVar11)))
                 } else if (time == "12") {
-                    setItens12(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar12[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens12(JSON.parse(JSON.stringify(itensVar12)))
                 } else if (time == "13") {
-                    setItens13(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar13[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens13(JSON.parse(JSON.stringify(itensVar13)))
                 } else if (time == "14") {
-                    setItens14(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar14[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens14(JSON.parse(JSON.stringify(itensVar14)))
                 } else if (time == "15") {
-                    setItens15(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar15[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens15(JSON.parse(JSON.stringify(itensVar15)))
                 } else if (time == "16") {
-                    setItens16(JSON.parse(JSON.stringify(itensVar)))
+                    if (contador == i) {
+                        let k = i
+                        for (let j = 0; j < data.length; j++) {
+                            itensVar16[k] = data[j]
+                            k++
+                        }
+                    }
+                    setItens16(JSON.parse(JSON.stringify(itensVar16)))
                 }
 
-            }
+           
 
 
         }
@@ -315,14 +512,102 @@ export default function TimesCadastrados() {
         },
     ]
 
+    async function alterarNome() {
+        await apiC.post("cadastrar/alterarNome", {
+            "id": idParaAlterar,
+            "nome": novoNome,
+            headers: {
+                'x-access-token': token,
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                alert("nome alterado")
+                location.reload()
+            }
+        })
+        .catch((error) => {
+            alert("erro, nome não alterado, verificar console de erro")
+            console.log("erro ",error)
+        });
+    }
+
+    async function deletarNome() {
+        await apiC.post("cadastrar/deletarNome", {
+            "id": idParaAlterar,
+            headers: {
+                'x-access-token': token,
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                alert("jogador deletado")
+                location.reload()
+            }
+        })
+        .catch((error) => {
+            alert("erro, jogador não deletado, verificar console de erro")
+            console.log("erro ",error)
+        });
+
+    }
 
     return (
 
         <>
+   <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
+                        <div>Home</div>
+                    </Button>
+        
+{paraDeletarAlgo &&
+                    <h3> Realmente deseja deletar o jogador {nomeParaAlterar} ? </h3>
+
+                }
+
+{paraDeletarAlgo &&
+                
+<Button onClick={(e) => deletarNome()}>
+<div>Sim</div>
+<div className="espaco4"></div>
+</Button>
+            }
+
+{paraDeletarAlgo &&
+                <Button onClick={(e) => setParaDeletarAlgo(!paraDeletarAlgo)}>
+                <div>Não</div>
+                </Button>
+
+            }
+
+{paraAlterarAlgo &&
+<h3> Deseja alterar {nomeParaAlterar} para qual nome? </h3>
+}
+
+{paraAlterarAlgo &&
+  <Form.Control
+  onChange={e => { setNovoNome(e.target.value) }}
+  value={novoNome}
+/>
+}
+           {paraAlterarAlgo &&
+<Button onClick={(e) => alterarNome()}>
+<div>Enviar</div>
+<div className="espaco4"></div>
+</Button>
+           }  
 
             {/* {carregando &&
                 <h1>carregando..</h1>
             } */}
+            <div>
+             <Button onClick={(e) => setParaAlterarAlgo(!paraAlterarAlgo)}>
+                    <div>Alterar nome do jogador</div>
+                </Button>
+                 <div className="espaco4"></div>
+                <Button onClick={(e) => setParaDeletarAlgo(!paraDeletarAlgo)}>
+                    <div>Deletar jogador</div>
+                </Button>
+                <div className="espaco4"></div>
+            </div>
+             
             <div className="lado">
 
                 <div>
@@ -331,9 +616,10 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens}
                         columns={colunas}
+                        selectRow={selecaoLinhas}
                         bootstrap4={true}
                         bordered={false}
                     />
@@ -345,8 +631,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens2}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -359,8 +646,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens3}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -373,8 +661,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens4}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -391,8 +680,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens5}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -405,8 +695,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens6}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -419,8 +710,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens7}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -433,8 +725,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens8}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -449,8 +742,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens9}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -463,8 +757,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens10}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -477,8 +772,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens11}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -491,8 +787,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens12}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -509,8 +806,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens13}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -523,8 +821,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens14}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -537,8 +836,9 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens15}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
@@ -551,16 +851,17 @@ export default function TimesCadastrados() {
                         hover={true}
                         classes="tabela"
                         condensed={true}
-                        keyField='id'
+                        keyField='id_jogador'
                         data={itens16}
+                        selectRow={selecaoLinhas}
                         columns={colunas}
                         bootstrap4={true}
                         bordered={false}
                     />
                 </div> 
                  </div>
-           
-                
+               
+
                
 
         </>

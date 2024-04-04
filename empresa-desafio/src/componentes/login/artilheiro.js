@@ -3,6 +3,7 @@ import '../../css/login/artilheiro.css';
 import { Button, Image, Form, InputGroup, FormControl, Col, Carousel, Alert } from 'react-bootstrap';
 import { apiC } from "../../conexoes/api";
 import BootstrapTable from 'react-bootstrap-table-next';
+import { useNavigate } from 'react-router-dom';
 
 export default function Artilheiro() {
 
@@ -15,7 +16,8 @@ export default function Artilheiro() {
     const [mensagemTabela, setMensagemTabela] = useState('');
     const [itens, setItens] = useState([]);
     const [somaGols, setSomaGols] = useState([]);
-
+    const navigate = useNavigate();
+    let token = JSON.parse(localStorage.getItem("keyToken"))
     let totalItens = 0
     let contador = 0
     let itensVar = []
@@ -25,11 +27,30 @@ export default function Artilheiro() {
         inserirData()
     }, [])
 
+    useEffect(() => {
+        async function autenticar(e) {
+            await apiC.post("autenticacao/autenticar")
+            .then(response => {
+      console.log("esta autenticado")
+            })
+            .catch((error) => {
+                if(error.response.data === 'não autenticado'){
+                    navigate('/')
+                }
+            });
+        }
+        setTimeout(autenticar, 5000);
+    }, [])
+
 
     async function inserirData() {
         let somaTotalGols = 0
         setMensagemTabela('Inserindo na tabela..')
-        await apiC.post("artilheiro/buscar")
+        await apiC.post("artilheiro/buscar", {
+            headers: {
+                'x-access-token': token,
+            }
+        })   
             .then(response => {
                 if (response.status === 200) {
                     for (let i = 0; i < response.data.length; i++) {
@@ -64,7 +85,10 @@ export default function Artilheiro() {
         await apiC.put("artilheiro/atualiza", {
             "id": item[0].id,
             "nome": item[0].nome,
-            "gols": item[0].gols + quantidadeGolNum
+            "gols": item[0].gols + quantidadeGolNum,
+            headers: {
+                'x-access-token': token,
+            }
         })
             .then(response => {
                 if (response.status === 200) {
@@ -90,7 +114,10 @@ export default function Artilheiro() {
             setMensagem('Inserindo novo nome..')
             await apiC.post("artilheiro/inserir", {
                 "nome": nomeJogador,
-                "gols": quantidadeGolNum
+                "gols": quantidadeGolNum,
+                headers: {
+                    'x-access-token': token,
+                }
             }).then(response => {
                 if (response.status === 200) {
                     setMensagem('Novo nome inserido!')
@@ -115,6 +142,9 @@ export default function Artilheiro() {
 for(let i = 0; i < dadosSelecionados.length; i++){
     await apiC.post("artilheiro/delete", {
         "id": dadosSelecionados[i],
+        headers: {
+            'x-access-token': token,
+        }
     })
         .then(response => {
             if (response.status === 200) {
@@ -137,7 +167,10 @@ for(let i = 0; i < dadosSelecionados.length; i++){
         setCarregando(true)
         setMensagem('salvando..')
         await apiC.post("artilheiro/nome", {
-            "nome": nomeJogador
+            "nome": nomeJogador,
+            headers: {
+                'x-access-token': token,
+            }
         })
             .then(response => {
                 if (response.status === 200) {
@@ -257,6 +290,9 @@ for(let i = 0; i < dadosSelecionados.length; i++){
 
     return (
         <>
+        <Button className="btn-filtro-arquivo" onClick={(e) => navigate('/home')}>
+                        <div>Home</div>
+                    </Button>
             {carregando &&
                 <h1>carregando..</h1>
             }
