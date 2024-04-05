@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5134b667.css",
+    "main.js": "/static/js/main.92fe595c.js",
+    "static/js/787.08594ff0.chunk.js": "/static/js/787.08594ff0.chunk.js",
+    "static/media/longevidade.jpg": "/static/media/longevidade.f24265ac24806a64619b.jpg",
+    "static/media/Captura-de-tela-2023-11-24 193610.png": "/static/media/Captura-de-tela-2023-11-24 193610.e7afe8b5029eaebdd96c.png",
+    "static/media/school.svg": "/static/media/school.a41655f6d5350015803153c7410cef6a.svg",
+    "static/media/icone-seta-dropdown.svg": "/static/media/icone-seta-dropdown.0d2b99e0f4aed00f6877c5ae6dba1b74.svg",
+    "static/media/work.svg": "/static/media/work.3710b62484ed638074240e99317c6c60.svg",
+    "index.html": "/index.html",
+    "main.5134b667.css.map": "/static/css/main.5134b667.css.map",
+    "main.92fe595c.js.map": "/static/js/main.92fe595c.js.map",
+    "787.08594ff0.chunk.js.map": "/static/js/787.08594ff0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5134b667.css",
+    "static/js/main.92fe595c.js"
+  ]
+}
